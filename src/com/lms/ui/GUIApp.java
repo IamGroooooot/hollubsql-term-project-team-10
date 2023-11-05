@@ -1,9 +1,16 @@
 package com.lms.ui;
 
+import com.lms.service.LmsService;
+import com.lms.service.impl.LmsServiceImpl;
+import com.lms.vo.LmsVo;
+import com.lms.vo.UserVo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 public class GUIApp {
     private JPanel jPanel;
@@ -11,7 +18,7 @@ public class GUIApp {
     private JRadioButton userAddRadioButton;
     private JRadioButton bookReturnRadioButton;
     private JRadioButton bookAddRadioButton;
-    private JRadioButton bookSerachRadioButton;
+    private JRadioButton bookSearchRadioButton;
     private JTextField textField1;
     private JTextField textField2;
     private JButton button1;
@@ -19,6 +26,7 @@ public class GUIApp {
     private JLabel label1;
     private JTextArea textArea1;
     private Integer select;
+    private LmsService lmsService;
 
     public JPanel getjPanel() {
         return jPanel;
@@ -61,7 +69,7 @@ public class GUIApp {
             }
         });
 
-        bookSerachRadioButton.addActionListener(new ActionListener() { // 4: 도서 검색
+        bookSearchRadioButton.addActionListener(new ActionListener() { // 4: 도서 검색
             @Override
             public void actionPerformed(ActionEvent e) {
                 select = 4;
@@ -76,6 +84,14 @@ public class GUIApp {
                 switch (select) {
                     case 0:
                         //TODO 도서 대출
+                        /**
+                        lmsService.borrowBook(new Observer() {
+                            @Override
+                            public void update(Observable o, Object arg) {
+
+                            }
+                        }, new LmsVo(), new UserVo());
+                         */
 
                         break;
                     case 1:
@@ -107,6 +123,8 @@ public class GUIApp {
     }
 
     public GUIApp() {
+        lmsService = new LmsServiceImpl();
+
         initUI();
         initActionListener();
     }
@@ -143,9 +161,9 @@ public class GUIApp {
         bookAddRadioButton = new JRadioButton();
         bookAddRadioButton.setText("도서 추가");
         panel1.add(bookAddRadioButton, new com.intellij.uiDesigner.core.GridConstraints(0, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        bookSerachRadioButton = new JRadioButton();
-        bookSerachRadioButton.setText("도서 검색");
-        panel1.add(bookSerachRadioButton, new com.intellij.uiDesigner.core.GridConstraints(0, 4, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        bookSearchRadioButton = new JRadioButton();
+        bookSearchRadioButton.setText("도서 검색");
+        panel1.add(bookSearchRadioButton, new com.intellij.uiDesigner.core.GridConstraints(0, 4, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         jPanel.add(panel2, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -186,7 +204,7 @@ public class GUIApp {
         buttonGroup.add(userAddRadioButton);
         buttonGroup.add(bookReturnRadioButton);
         buttonGroup.add(bookAddRadioButton);
-        buttonGroup.add(bookSerachRadioButton);
+        buttonGroup.add(bookSearchRadioButton);
     }
 
     /**
