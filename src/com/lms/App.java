@@ -18,7 +18,7 @@ public class App {
                 frame.pack();
                 frame.setSize(500, 300); // UI 기본 크기
                 frame.setVisible(true);
-                LmsService model = new LmsService(1);
+                LmsService model = new LmsService();
                 LmsController controller = new LmsController(model, view);
             }
         });

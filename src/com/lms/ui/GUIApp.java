@@ -135,8 +135,6 @@ public class GUIApp {
     }
 
     private void initUI() {
-        label1.setText("도서 ID");
-        label2.setText("유저 ID");
         bookBorrowRadioButton.setSelected(true);
         select = 0;
     }

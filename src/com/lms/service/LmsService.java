@@ -5,15 +5,10 @@ import javax.swing.table.DefaultTableModel;
 public class LmsService {
     private String label1;
     private String label2;
-    private String result;
+    private String result = "";
 
-    public LmsService(int value) {
-        SetInitialValues(value);
-    }
-
-    private void SetInitialValues(int value) {
-        SetLabelValues(value);
-        result = "";
+    public LmsService() {
+        
     }
 
     public String GetLabel1() {
@@ -32,7 +27,7 @@ public class LmsService {
                 label1 = "ID";
                 label2 = "이름";
                 break;
-            case 2:
+            case 0, 2:
                 label1 = "도서 ID";
                 label2 = "유저 ID";
                 break;
