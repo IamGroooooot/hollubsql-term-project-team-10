@@ -1,11 +1,12 @@
 package com.lms.ui;
 
 import com.lms.service.LmsService;
-import com.lms.service.impl.LmsServiceImpl;
+//import com.lms.service.impl.LmsServiceImpl;
 import com.lms.vo.LmsVo;
 import com.lms.vo.UserVo;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -85,11 +86,10 @@ public class GUIApp {
                     case 0:
                         //TODO 도서 대출
                         /**
-                        lmsService.borrowBook(new Observer() {
-                            @Override
-                            public void update(Observable o, Object arg) {
+                         lmsService.borrowBook(new Observer() {
+                        @Override public void update(Observable o, Object arg) {
 
-                            }
+                        }
                         }, new LmsVo(), new UserVo());
                          */
 
@@ -115,6 +115,25 @@ public class GUIApp {
         });
     }
 
+    public void SetLabels(String label1Str, String label2Str) {
+        this.label1.setText(label1Str);
+        this.label2.setText(label2Str);
+    }
+
+    public void RemovePreviousButtonListener() {
+        for (ActionListener al : button1.getActionListeners()) {
+            button1.removeActionListener(al);
+        }
+    }
+
+    public void SetButtonListener(ActionListener action) {
+        button1.addActionListener(action);
+    }
+
+    public void SetResultView(String resultText) {
+        textArea1.setText(resultText);
+    }
+
     private void initUI() {
         label1.setText("도서 ID");
         label2.setText("유저 ID");
@@ -123,10 +142,10 @@ public class GUIApp {
     }
 
     public GUIApp() {
-        lmsService = new LmsServiceImpl();
+//        lmsService = new LmsServiceImpl();
 
         initUI();
-        initActionListener();
+//        initActionListener();
     }
 
     {
