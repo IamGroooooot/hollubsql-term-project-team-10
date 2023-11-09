@@ -6,12 +6,8 @@ import com.lms.vo.LmsVo;
 import com.lms.vo.UserVo;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observable;
-import java.util.Observer;
 
 public class GUIApp {
     private JPanel jPanel;
@@ -33,88 +29,6 @@ public class GUIApp {
         return jPanel;
     }
 
-    private void initActionListener() {
-        bookBorrowRadioButton.addActionListener(new ActionListener() { // 0: 도서 대출
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                select = 0;
-                label1.setText("도서 ID");
-                label2.setText("유저 ID");
-            }
-        });
-
-        userAddRadioButton.addActionListener(new ActionListener() { // 1: 사용자 추가
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                select = 1;
-                label1.setText("ID");
-                label2.setText("이름");
-            }
-        });
-
-        bookReturnRadioButton.addActionListener(new ActionListener() { // 2: 도서 반납
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                select = 2;
-                label1.setText("도서 ID");
-                label2.setText("유저 ID");
-            }
-        });
-
-        bookAddRadioButton.addActionListener(new ActionListener() { // 3: 도서 추가
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                select = 3;
-                label1.setText("도서명");
-                label2.setText("저자명");
-            }
-        });
-
-        bookSearchRadioButton.addActionListener(new ActionListener() { // 4: 도서 검색
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                select = 4;
-                label1.setText("도서명");
-                label2.setText("저자명");
-            }
-        });
-
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                switch (select) {
-                    case 0:
-                        //TODO 도서 대출
-                        /**
-                         lmsService.borrowBook(new Observer() {
-                        @Override public void update(Observable o, Object arg) {
-
-                        }
-                        }, new LmsVo(), new UserVo());
-                         */
-
-                        break;
-                    case 1:
-                        //TODO 사용자 추가
-
-                        break;
-                    case 2:
-                        //TODO 도서 반납
-
-                        break;
-                    case 3:
-                        //TODO 도서 추가
-
-                        break;
-                    case 4:
-                        //TODO 도서 검색
-
-                        break;
-                }
-            }
-        });
-    }
-
     public void SetLabels(String label1Str, String label2Str) {
         this.label1.setText(label1Str);
         this.label2.setText(label2Str);
@@ -132,6 +46,28 @@ public class GUIApp {
 
     public void SetResultView(String resultText) {
         textArea1.setText(resultText);
+    }
+
+    public String GetTextfield1() {
+        return textField1.getText();
+    }
+
+    public String GetTextfield2() {
+        return textField2.getText();
+    }
+
+    public void ClearInsert() {
+        this.textField1.setText(null);
+        this.textField2.setText(null);
+    }
+
+    public void SetRadioButtons(ActionListener action1, ActionListener action2, ActionListener action3,
+                                ActionListener action4, ActionListener action5) {
+        bookBorrowRadioButton.addActionListener(action1);
+        userAddRadioButton.addActionListener(action2);
+        bookReturnRadioButton.addActionListener(action3);
+        bookAddRadioButton.addActionListener(action4);
+        bookSearchRadioButton.addActionListener(action5);
     }
 
     private void initUI() {
@@ -191,7 +127,7 @@ public class GUIApp {
         panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel3.add(panel4, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         label1 = new JLabel();
-        label1.setText("Label");
+        label1.setText("도서 ID");
         panel4.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         textField1 = new JTextField();
         panel4.add(textField1, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
@@ -199,7 +135,7 @@ public class GUIApp {
         panel5.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel3.add(panel5, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         label2 = new JLabel();
-        label2.setText("Label");
+        label2.setText("유저 ID");
         panel5.add(label2, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         textField2 = new JTextField();
         panel5.add(textField2, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));

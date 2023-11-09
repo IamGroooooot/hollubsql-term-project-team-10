@@ -8,7 +8,7 @@ public class LmsService {
     private String result = "";
 
     public LmsService() {
-        
+        SetLabelValues(0);
     }
 
     public String GetLabel1() {
@@ -32,10 +32,30 @@ public class LmsService {
                 label2 = "유저 ID";
                 break;
             case 3, 4:
-                label1 = "도서명";
-                label2 = "저자명";
+                label1 = "도서 ID";
+                label2 = "도서 이름";
                 break;
         }
+    }
+
+    public void BorrowBook(String userId, String bookId) {
+        result = userId;
+    }
+
+    public void ReturnBook(String userId, String bookId) {
+        result = "return";
+    }
+
+    public void AddUser(String userId, String userName) {
+        result = "adduser";
+    }
+
+    public void AddBook(String bookId, String bookName) {
+        result = "addbook";
+    }
+
+    public void SearchBook(String bookId, String bookName) {
+        result = "search";
     }
 
 }
