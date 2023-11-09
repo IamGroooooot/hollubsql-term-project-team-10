@@ -40,6 +40,7 @@ public class LmsService {
 
     public void BorrowBook(String userId, String bookId) {
         result = userId;
+        assert result.equals(userId): "borrowed";
     }
 
     public void ReturnBook(String userId, String bookId) {
