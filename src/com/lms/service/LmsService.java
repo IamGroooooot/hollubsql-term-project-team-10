@@ -1,34 +1,62 @@
 package com.lms.service;
 
-import com.lms.vo.LmsVo;
-import com.lms.vo.UserVo;
+import javax.swing.table.DefaultTableModel;
 
-import java.util.Observer;
+public class LmsService {
+    private String label1;
+    private String label2;
+    private String result = "";
 
-public interface LmsService {
-    /**
-        도서 대출
-     */
-    public void borrowBook(Observer observer, LmsVo lmsVo, UserVo userVo);
+    public LmsService() {
+        SetLabelValues(0);
+    }
 
-    /**
-     사용자 추가
-     */
-    public void addUser(Observer observer, UserVo vo);
+    public String GetLabel1() {
+        return label1;
+    }
+    public String GetLabel2() {
+        return label2;
+    }
+    public String GetResult() {
+        return result;
+    }
 
-    /**
-     도서 반납
-     */
-    public void returnBook(Observer observer, LmsVo lmsVo, UserVo userVo);
+    public void SetLabelValues(int selectedNum) {
+        switch (selectedNum) {
+            case 1:
+                label1 = "ID";
+                label2 = "이름";
+                break;
+            case 0, 2:
+                label1 = "도서 ID";
+                label2 = "유저 ID";
+                break;
+            case 3, 4:
+                label1 = "도서 ID";
+                label2 = "도서 이름";
+                break;
+        }
+    }
 
-    /**
-     도서 추가
-     */
-    public void addBook(Observer observer, LmsVo vo);
+    public void BorrowBook(String userId, String bookId) {
+        result = userId;
+        assert result.equals(userId): "borrowed";
+    }
 
-    /**
-     도서 검색
-     */
-    public void searchBook(Observer observer, LmsVo vo);
+    public void ReturnBook(String userId, String bookId) {
+        result = "return";
+    }
+
+    public void AddUser(String userId, String userName) {
+        result = "adduser";
+    }
+
+    public void AddBook(String bookId, String bookName) {
+        result = "addbook";
+    }
+
+    public void SearchBook(String bookId, String bookName) {
+        result = "search";
+    }
 
 }
