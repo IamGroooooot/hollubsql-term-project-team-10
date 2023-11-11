@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LmsController {
-    private LmsService model;
-    private GUIApp view;
+    private final LmsService model;
+    private final GUIApp view;
 
     public LmsController(LmsService model, GUIApp view) {
         this.model = model;
