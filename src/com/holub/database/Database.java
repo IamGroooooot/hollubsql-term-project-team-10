@@ -444,7 +444,7 @@ public final class Database {    /* The directory that represents the database.
      *                     database can't be found.
      */
     public void useDatabase(File path) throws IOException {
-        dump();
+        dump(ExporterType.CSV);
         tables.clear();    // close old database if there is one
         this.location = path;
     }
@@ -508,20 +508,40 @@ public final class Database {    /* The directory that represents the database.
      * The present implemenation flushes to a .csv file whose name
      * is the table name with a ".csv" extension added.
      */
-    public void dump() throws IOException {
+    public void dump(ExporterType type) throws IOException {
+        Table.Exporter exporter = null;
+        Writer out = null;
         Collection values = tables.values();
+
         if (values != null) {
             for (Iterator i = values.iterator(); i.hasNext(); ) {
                 Table current = (Table) i.next();
                 if (current.isDirty()) {
-                    Writer out =
-                            new FileWriter(
-                                    new File(location, current.name() + ".csv"));
-                    current.export(new CSVExporter(out));
+                    switch (type) {
+                        case CSV:
+                            out = new FileWriter(new File(location, current.name() + ".csv"));
+                            exporter = new CSVExporter(out);
+                            break;
+                        case XML:
+                            out = new FileWriter(new File(location, current.name() + ".xml"));
+                            exporter = new XMLExporter(out);
+                            break;
+                        case HTML:
+                            out = new FileWriter(new File(location, current.name() + ".html"));
+                            exporter = new HTMLExporter(out);
+                            break;
+                    }
+
+                    current.export(exporter);
                     out.close();
                 }
             }
         }
+        if (type.equals(ExporterType.CSV)) {
+
+        } else if (type.equals(ExporterType.XML)) {
+        }
+
     }
 
     /**
@@ -684,7 +704,7 @@ public final class Database {    /* The directory that represents the database.
             in.matchAdvance(WORK);    // ignore it if it's there
             commit();
         } else if (in.matchAdvance(DUMP) != null) {
-            dump();
+            dump(ExporterType.CSV);
         }
 
         // These productions must be handled via an
@@ -1248,7 +1268,9 @@ public final class Database {    /* The directory that represents the database.
                         + e.getErrorReport());
             }
 
-            theDatabase.dump();
+//            theDatabase.dump(ExporterType.CSV);
+//            theDatabase.dump(ExporterType.HTML);
+            theDatabase.dump(ExporterType.XML);
             System.out.println("Database PASSED");
             System.exit(0);
         }

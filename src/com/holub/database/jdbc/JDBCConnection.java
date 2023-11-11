@@ -27,6 +27,7 @@
 package com.holub.database.jdbc;
 
 import com.holub.database.Database;
+import com.holub.database.ExporterType;
 import com.holub.database.jdbc.adapters.ConnectionAdapter;
 import com.holub.text.ParseFailure;
 
@@ -80,7 +81,7 @@ public class JDBCConnection extends ConnectionAdapter {
         try {
             autoCommitState.close();
 
-            database.dump();
+            database.dump(ExporterType.CSV);
             database = null;    // make the memory reclaimable and
             // also force a nullPointerException
             // if anybody tries to use the
