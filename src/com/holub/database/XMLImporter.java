@@ -28,13 +28,18 @@ package com.holub.database;
 
 import com.holub.tools.ArrayIterator;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /***
  *	Pass this importer to a {@link Table} constructor (such
  *	as
- *	{link com.holub.database.ConcreteTable#ConcreteTable(Table.Importer)}
+ *    {link com.holub.database.ConcreteTable#ConcreteTable(Table.Importer)}
  *	to initialize
  *	a <code>Table</code> from
  *	a comma-sparated-value repressentation. For example:
@@ -64,58 +69,61 @@ import java.util.*;
  * @see CSVExporter
  */
 
-public class XMLImporter implements Table.Importer
-{	private BufferedReader  in;			// null once end-of-file reached
-	private String[]        columnNames;
-	private String          tableName;
+public class XMLImporter implements Table.Importer {
+    private final BufferedReader in;            // null once end-of-file reached
+    private String[] columnNames;
+    private String tableName;
 
-	public XMLImporter( Reader in )
-	{	this.in = in instanceof BufferedReader
-						? (BufferedReader)in
-                        : new BufferedReader(in)
-	                    ;
-	}
-	public void startTable()			throws IOException
-	{	
+    public XMLImporter(Reader in) {
+        this.in = in instanceof BufferedReader
+                ? (BufferedReader) in
+                : new BufferedReader(in)
+        ;
+    }
+
+    public void startTable() throws IOException {
         in.mark(10000);
         tableName = in.readLine().split("<|>")[1];
 
         String line = in.readLine();
         List<String> columnNamesList = new ArrayList<String>();
-        while (line.contains("</" + tableName + ">") == false) {
+        while (!line.contains("</" + tableName + ">")) {
             String columnName = line.split("<|>")[1];
             columnNamesList.add(columnName);
 
             line = in.readLine();
         }
         Object[] columnNamesArray = columnNamesList.toArray();
-		columnNames = Arrays.copyOf(columnNamesArray, columnNamesArray.length, String[].class);
+        columnNames = Arrays.copyOf(columnNamesArray, columnNamesArray.length, String[].class);
         in.reset();
-	}
-	public String loadTableName()		throws IOException
-	{	return tableName;
-	}
-	public int loadWidth()			    throws IOException
-	{	return columnNames.length;
-	}
-	public Iterator loadColumnNames()	throws IOException
-	{	return new ArrayIterator(columnNames);  //{=CSVImporter.ArrayIteratorCall}
-	}
+    }
 
-	public Iterator loadRow()			throws IOException
-	{	
+    public String loadTableName() throws IOException {
+        return tableName;
+    }
+
+    public int loadWidth() throws IOException {
+        return columnNames.length;
+    }
+
+    public Iterator loadColumnNames() throws IOException {
+        return new ArrayIterator(columnNames);  //{=CSVImporter.ArrayIteratorCall}
+    }
+
+    public Iterator loadRow() throws IOException {
         String line = in.readLine();
         if (line == null) return null;
         line = in.readLine();
         List<String> valueList = new ArrayList<String>();
-        while (line.contains("</" + tableName + ">") == false) {
+        while (!line.contains("</" + tableName + ">")) {
             String columnName = line.split("<|>")[2];
             valueList.add(columnName);
 
             line = in.readLine();
         }
-		return valueList.iterator();
-	}
+        return valueList.iterator();
+    }
 
-	public void endTable() throws IOException {}
+    public void endTable() throws IOException {
+    }
 }

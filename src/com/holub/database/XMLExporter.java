@@ -26,10 +26,11 @@
  */
 package com.holub.database;
 
-import java.io.*;
-import java.util.*;
-
 import com.holub.tools.ArrayIterator;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Iterator;
 
 /***
  *	Pass this exporter to a {@link Table#export} implementation to
@@ -62,27 +63,25 @@ import com.holub.tools.ArrayIterator;
  * @see CSVImporter
  */
 
-public class XMLExporter implements Table.Exporter
-{	private final Writer out;
+public class XMLExporter implements Table.Exporter {
+    private final Writer out;
 
     private String tableName;
     private Object[] columnNames;
 
-	public XMLExporter( Writer out )
-	{	this.out = out;
-	}
+    public XMLExporter(Writer out) {
+        this.out = out;
+    }
 
-	public void storeMetadata( String tableName, int width, int height, Iterator columnNames ) throws IOException
-	{	
+    public void storeMetadata(String tableName, int width, int height, Iterator columnNames) throws IOException {
         this.tableName = tableName;
-        this.columnNames = ((ArrayIterator)columnNames).toArray();
-	}
+        this.columnNames = ((ArrayIterator) columnNames).toArray();
+    }
 
-	public void storeRow( Iterator data ) throws IOException
-	{	
+    public void storeRow(Iterator data) throws IOException {
         out.write(String.format("<%s>\n", tableName));
 
-		for (Iterator i = new ArrayIterator(columnNames); i.hasNext();) {
+        for (Iterator i = new ArrayIterator(columnNames); i.hasNext(); ) {
             String columnName = i.next().toString();
             Object datum = data.next();
 
@@ -92,8 +91,9 @@ public class XMLExporter implements Table.Exporter
         }
 
         out.write(String.format("</%s>\n", tableName));
-	}
+    }
 
-	public void startTable() throws IOException {/*nothing to do*/}
-	public void endTable()   throws IOException {/*nothing to do*/}
+    public void startTable() throws IOException {/*nothing to do*/}
+
+    public void endTable() throws IOException {/*nothing to do*/}
 }
