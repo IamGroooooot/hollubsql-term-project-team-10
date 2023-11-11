@@ -1,4 +1,4 @@
-<addressList>
+<addressTable>
 <address>
 	<addrId>0</addrId>
 	<street>12 MyStreet</street>
@@ -13,4 +13,4 @@
 	<state>AZ</state>
 	<zip>00000</zip>
 </address>
-</addressList>
+</addressTable>

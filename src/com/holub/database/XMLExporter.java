@@ -74,6 +74,7 @@ public class XMLExporter implements Table.Exporter {
     }
 
     public void storeMetadata(String tableName, int width, int height, Iterator columnNames) throws IOException {
+        out.write(String.format("<%sTable>\n", tableName));
         this.tableName = tableName;
         this.columnNames = ((ArrayIterator) columnNames).toArray();
     }
@@ -93,7 +94,9 @@ public class XMLExporter implements Table.Exporter {
         out.write(String.format("</%s>\n", tableName));
     }
 
-    public void startTable() throws IOException {/*nothing to do*/}
+    public void startTable() throws IOException {}
 
-    public void endTable() throws IOException {/*nothing to do*/}
+    public void endTable() throws IOException {
+        out.write(String.format("</%sTable>\n", tableName));
+    }
 }
