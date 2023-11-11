@@ -703,11 +703,12 @@ import java.util.*;
             // fail if this operation fails.
 
             Writer out = new FileWriter("people");
-            people.export(new CSVExporter(out));
+            people.export(new XMLExporter(out));
             out.close();
 
             Reader in = new FileReader("people");
-            people = new ConcreteTable(new CSVImporter(in));
+            people = new ConcreteTable(new XMLImporter(in));
+
             in.close();
         }
 

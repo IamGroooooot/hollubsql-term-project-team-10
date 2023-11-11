@@ -82,13 +82,14 @@ public class XMLImporter implements Table.Importer {
     }
 
     public void startTable() throws IOException {
+        in.readLine();
         in.mark(10000);
-        tableName = in.readLine().split("<|>")[1];
+        tableName = in.readLine().split("[<>]")[1];
 
         String line = in.readLine();
         List<String> columnNamesList = new ArrayList<String>();
         while (!line.contains("</" + tableName + ">")) {
-            String columnName = line.split("<|>")[1];
+            String columnName = line.split("[<>]")[1];
             columnNamesList.add(columnName);
 
             line = in.readLine();
@@ -111,12 +112,12 @@ public class XMLImporter implements Table.Importer {
     }
 
     public Iterator loadRow() throws IOException {
+        in.readLine();
         String line = in.readLine();
         if (line == null) return null;
-        line = in.readLine();
         List<String> valueList = new ArrayList<String>();
         while (!line.contains("</" + tableName + ">")) {
-            String columnName = line.split("<|>")[2];
+            String columnName = line.split("[<>]")[2];
             valueList.add(columnName);
 
             line = in.readLine();
