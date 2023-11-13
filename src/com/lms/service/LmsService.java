@@ -1,6 +1,10 @@
 package com.lms.service;
 
-import javax.swing.table.DefaultTableModel;
+import com.lms.repository.DatabaseManager;
+
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LmsService {
     private String label1;
@@ -58,5 +62,42 @@ public class LmsService {
     public void SearchBook(String bookId, String bookName) {
         result = "search";
     }
+
+    /** DB 쿼리 예시 코드
+    public void dbTestCode() {
+        DatabaseManager databaseManager = new DatabaseManager();
+        try {
+            databaseManager.openDatabase("temp");
+            databaseManager.executeUpdate(
+                    "create table test (" +
+                            "  Entry      INTEGER      NOT NULL" +
+                            ", Customer   VARCHAR (20) NOT NULL" +
+                            ", DOW        VARCHAR (3)  NOT NULL" +
+                            ", Cups       INTEGER      NOT NULL" +
+                            ", Type       VARCHAR (10) NOT NULL" +
+                            ", PRIMARY KEY( Entry )" +
+                            ")"
+            );
+
+            databaseManager.executeUpdate(
+                    "insert into test VALUES (1,  'John',   'Mon', 1, 'JustJoe')");
+
+            ResultSet result = databaseManager.executeQuery("select * from test");
+
+            while (result.next()) {
+                System.out.println
+                        (result.getInt("Entry") + ", "
+                                + result.getString("Customer") + ", "
+                                + result.getString("DOW") + ", "
+                                + result.getInt("Cups") + ", "
+                                + result.getString("Type")
+                        );
+            }
+            databaseManager.closeDatabase();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+     */
 
 }
