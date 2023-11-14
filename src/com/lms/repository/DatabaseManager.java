@@ -2,6 +2,7 @@ package com.lms.repository;
 
 import javax.swing.*;
 import java.io.*;
+import java.nio.file.Path;
 import java.sql.*;
 
 public class DatabaseManager {
@@ -41,11 +42,14 @@ public class DatabaseManager {
             System.exit(1);
 
         File database = new File(databaseName);
-        FileOutputStream fos = new FileOutputStream(database, true);
-        fos.close();
+
+        if (!database.exists())
+            database.mkdir();
+
+        String path = System.getProperty("user.dir")+"\\"+database.getPath();
 
         try {
-            connection = DriverManager.getConnection("file:/" + databaseName, "harpo", "swordfish");
+            connection = DriverManager.getConnection(Path.of(path).toUri().toString(), "harpo", "swordfish");
             statement = connection.createStatement();
         } catch (SQLException e) {
             displayException("Couldn't open database: " + databaseName, e);
@@ -53,14 +57,12 @@ public class DatabaseManager {
         }
     }
 
-    public void closeDatabase() {
+    public void closeDatabase() throws SQLException {
         try {
             if (statement != null) statement.close();
-        } catch (Exception e) {
-        }
-        try {
             if (connection != null) connection.close();
         } catch (Exception e) {
+            throw e;
         }
     }
 
