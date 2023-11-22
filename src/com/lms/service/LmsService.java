@@ -10,9 +10,11 @@ public class LmsService {
     private String label1;
     private String label2;
     private String result = "";
+    private ConnectDatabase connectDatabase;
 
-    public LmsService() {
+    public LmsService(ConnectDatabase connectDatabase) {
         SetLabelValues(0);
+        this.connectDatabase = connectDatabase;
     }
 
     public String GetLabel1() {
@@ -43,24 +45,31 @@ public class LmsService {
     }
 
     public void BorrowBook(String userId, String bookId) {
-        result = userId;
-        assert result.equals(userId): "borrowed";
+        result = String.valueOf(connectDatabase.AddData(userId, bookId));
+        assert result.equals("1");
     }
 
     public void ReturnBook(String userId, String bookId) {
-        result = "return";
+        result = String.valueOf(connectDatabase.AddData(userId, bookId));
+        assert result.equals("1");
     }
 
     public void AddUser(String userId, String userName) {
-        result = "adduser";
+        int resultNum = connectDatabase.AddData("users", userId, userName);
+        assert resultNum == 1 || resultNum == -7026;
+        if (resultNum == -7026) result = "Id Already Exists";
+        else result = "Inserted";
     }
 
     public void AddBook(String bookId, String bookName) {
-        result = "addbook";
+        int resultNum = connectDatabase.AddData("books", bookId, bookName);
+        assert resultNum == 1 || resultNum == -7026;
+        if (resultNum == -7026) result = "Id Already Exists";
+        else result = "Inserted";
     }
 
     public void SearchBook(String bookId, String bookName) {
-        result = "search";
+        result = String.valueOf(connectDatabase.SearchData(bookId));
     }
 
     /** DB 쿼리 예시 코드
