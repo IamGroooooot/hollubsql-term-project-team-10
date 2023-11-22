@@ -1,6 +1,7 @@
 package com.lms;
 
 import com.lms.controller.LmsController;
+import com.lms.service.ConnectDatabase;
 import com.lms.service.LmsService;
 import com.lms.ui.GUIApp;
 
@@ -18,8 +19,14 @@ public class App {
                 frame.pack();
                 frame.setSize(500, 300); // UI 기본 크기
                 frame.setVisible(true);
-                LmsService model = new LmsService();
-                LmsController controller = new LmsController(model, view);
+                LmsService model = null;
+                try {
+                    ConnectDatabase connectDatabase = new ConnectDatabase("library");
+                    model = new LmsService(connectDatabase);
+                    LmsController controller = new LmsController(model, view);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
