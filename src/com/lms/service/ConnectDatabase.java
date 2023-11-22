@@ -2,6 +2,8 @@ package com.lms.service;
 
 import com.lms.repository.DatabaseManager;
 
+import java.util.Date;
+
 public class ConnectDatabase {
     private DatabaseManager databaseManager;
     public ConnectDatabase(String name) throws Exception {
@@ -20,18 +22,20 @@ public class ConnectDatabase {
                 PRIMARY KEY( Id ) )
                 """);
         databaseManager.executeUpdate("""
-                create table rents ( Date VARCHAR(25) NOT NULL, BookId VARCHAR(10) NOT NULL, 
+                create table rents ( Date INTEGER NOT NULL, BookId VARCHAR(10) NOT NULL, 
                 UserId VARCHAR(10) NOT NULL, Rent INTEGER, 
                 PRIMARY KEY( Date, BookId, UserId ) )
                 """);
     }
 
-    private void AddData(String tableName, String idValue, String nameValue) throws Exception {
+    public void AddData(String tableName, String idValue, String nameValue) throws Exception {
         databaseManager.executeUpdate("insert into " + tableName + " VALUES('" +
                 idValue + "', '" + nameValue + "')");
     }
-    private void AddData(String userId, String bookId) throws Exception {
-//        databaseManager.executeUpdate("insert into rents VALUES('" +
-//                idValue + "', '" + nameValue + "')");
+    public void AddData(String userId, String bookId) throws Exception {
+        long date = new Date().getTime();
+        int int_date = (int)(date / 1000 / 60 / 60 / 24);
+        databaseManager.executeUpdate("insert into rents VALUES(" + int_date + ", '" +
+                 userId + "', '" + bookId + "', 1)");
     }
 }
