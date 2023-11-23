@@ -67,6 +67,9 @@ public class GUIApp {
         this.textField1.setText(null);
         this.textField2.setText(null);
     }
+    public void ClearResult() {
+        this.textArea1.setText(null);
+    }
 
     public void SetRadioButtons(ActionListener action1, ActionListener action2, ActionListener action3,
                                 ActionListener action4, ActionListener action5) {

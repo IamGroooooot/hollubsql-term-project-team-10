@@ -42,6 +42,7 @@ public class LmsController {
                 break;
         }
         view.ClearInsert();
+        view.ClearResult();
     }
 
     class RadioButtonAction implements ActionListener {

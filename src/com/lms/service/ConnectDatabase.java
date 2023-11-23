@@ -49,10 +49,26 @@ public class ConnectDatabase {
     }
     public int AddData(String userId, String bookId) {
         try {
+            ResultSet resultBk = databaseManager.executeQuery("select Id from books" + " where Id='" + bookId + "'");
+            ResultSet resultUsr = databaseManager.executeQuery("select Id from users" + " where Id='" + userId + "'");
+            if (!resultBk.next() || !resultUsr.next()) return -7026;
             Date today = new Date();
             SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             return databaseManager.executeUpdate("insert into rents VALUES('" + date.format(today) + "', '" +
                     userId + "', '" + bookId + "', 1)");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public int ReturnUpdate(String userId, String bookId) {
+        try {
+            ResultSet resultRt = databaseManager.executeQuery("select UserId from rents where UserId='" + userId +
+                    "' and BookId='" + bookId + "' and Rent=1");
+            if (!resultRt.next()) return -7026;
+            return databaseManager.executeUpdate("update rents set Rent=0 where UserId='" + userId +
+                    "' and BookId='" + bookId + "' and Rent=1");
         } catch (Exception e) {
             e.printStackTrace();
         }
