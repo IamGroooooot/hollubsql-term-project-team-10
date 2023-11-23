@@ -39,9 +39,17 @@ public class LmsService {
                 label1 = "도서 ID";
                 label2 = "유저 ID";
                 break;
-            case 3, 4:
+            case 3:
                 label1 = "도서 ID";
                 label2 = "도서 이름";
+                break;
+            case 4:
+                label1 = null;
+                label2 = "도서 이름";
+                break;
+            case 5, 6:
+                label1 = null;
+                label2 = "이름";
                 break;
         }
     }

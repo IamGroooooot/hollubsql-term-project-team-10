@@ -17,7 +17,7 @@ public class App {
                 frame.setContentPane(view.getjPanel());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
-                frame.setSize(500, 300); // UI 기본 크기
+                frame.setSize(700, 300); // UI 기본 크기
                 frame.setVisible(true);
                 LmsService model = null;
                 try {

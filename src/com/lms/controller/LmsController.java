@@ -18,7 +18,8 @@ public class LmsController {
 
     private void InitController() {
         view.SetRadioButtons(new RadioButtonAction(0), new RadioButtonAction(1),
-                new RadioButtonAction(2), new RadioButtonAction(3), new RadioButtonAction(4));
+                new RadioButtonAction(2), new RadioButtonAction(3), new RadioButtonAction(4)
+                , new RadioButtonAction(5), new RadioButtonAction(6));
         SetAction(0);
     }
 
@@ -39,6 +40,12 @@ public class LmsController {
                 break;
             case 4:
                 view.SetButtonListener(new ExecuteSearch());
+                break;
+            case 5:
+                //TODO 구현
+                break;
+            case 6:
+                //TODO 구현
                 break;
         }
         view.ClearInsert();
