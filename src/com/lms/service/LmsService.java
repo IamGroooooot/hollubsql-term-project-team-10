@@ -11,6 +11,8 @@ public class LmsService {
     private String label2;
     private String result = "";
     private ConnectDatabase connectDatabase;
+    private String[] columnNames;
+    private Object[][] dataList;
 
     public LmsService(ConnectDatabase connectDatabase) {
         SetLabelValues(0);
@@ -45,27 +47,35 @@ public class LmsService {
     }
 
     public void BorrowBook(String userId, String bookId) {
-        result = String.valueOf(connectDatabase.AddData(userId, bookId));
-        assert result.equals("1");
+        int resultNum = connectDatabase.AddData(userId, bookId);
+        SetResultWhenRent(resultNum);
     }
 
     public void ReturnBook(String userId, String bookId) {
-        result = String.valueOf(connectDatabase.AddData(userId, bookId));
-        assert result.equals("1");
+        int resultNum = connectDatabase.ReturnUpdate(userId, bookId);
+        SetResultWhenRent(resultNum);
     }
 
     public void AddUser(String userId, String userName) {
         int resultNum = connectDatabase.AddData("users", userId, userName);
+        SetResultWhenAdd(resultNum);
+    }
+
+    public void AddBook(String bookId, String bookName) {
+        int resultNum = connectDatabase.AddData("books", bookId, bookName);
+        SetResultWhenAdd(resultNum);
+    }
+
+    private void SetResultWhenAdd(int resultNum) {
         assert resultNum == 1 || resultNum == -7026;
         if (resultNum == -7026) result = "Id Already Exists";
         else result = "Inserted";
     }
 
-    public void AddBook(String bookId, String bookName) {
-        int resultNum = connectDatabase.AddData("books", bookId, bookName);
+    private void SetResultWhenRent(int resultNum) {
         assert resultNum == 1 || resultNum == -7026;
-        if (resultNum == -7026) result = "Id Already Exists";
-        else result = "Inserted";
+        if (resultNum == -7026) result = "Id Does Not Exist";
+        else result = "Completed";
     }
 
     public void SearchBook(String bookId, String bookName) {
@@ -108,5 +118,6 @@ public class LmsService {
         }
     }
      */
+
 
 }
