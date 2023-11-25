@@ -1,12 +1,13 @@
 package com.lms.service;
 
+import com.lms.SqlCommands.*;
 import com.lms.repository.DatabaseManager;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 public class ConnectDatabase {
     private DatabaseManager databaseManager;
@@ -38,7 +39,10 @@ public class ConnectDatabase {
 
     public int AddData(String tableName, String idValue, String nameValue){
         try {
-            ResultSet resultSet = databaseManager.executeQuery("select Id from " + tableName + " where Id='" + idValue + "'");
+            SqlCommand sqlCommand = new SelectSql(tableName, "Id");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Id", idValue);
+            ResultSet resultSet = databaseManager.executeQuery(sqlCommand.command());
             if (resultSet.next()) return -7026;
             return databaseManager.executeUpdate("insert into " + tableName + " VALUES('" +
                     idValue + "', '" + nameValue + "')");
@@ -49,8 +53,14 @@ public class ConnectDatabase {
     }
     public int AddData(String userId, String bookId) {
         try {
-            ResultSet resultBk = databaseManager.executeQuery("select Id from books" + " where Id='" + bookId + "'");
-            ResultSet resultUsr = databaseManager.executeQuery("select Id from users" + " where Id='" + userId + "'");
+            SqlCommand sqlCommand = new SelectSql("books", "Id");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Id", bookId);
+            ResultSet resultBk = databaseManager.executeQuery(sqlCommand.command());
+            sqlCommand = new SelectSql("users", "Id");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Id", userId);
+            ResultSet resultUsr = databaseManager.executeQuery(sqlCommand.command());
             if (!resultBk.next() || !resultUsr.next()) return -7026;
             Date today = new Date();
             SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -64,26 +74,70 @@ public class ConnectDatabase {
 
     public int ReturnUpdate(String userId, String bookId) {
         try {
-            ResultSet resultRt = databaseManager.executeQuery("select UserId from rents where UserId='" + userId +
-                    "' and BookId='" + bookId + "' and Rent=1");
+            SqlCommand sqlCommand = new SelectSql("rents", "UserId");
+            sqlCommand = AllEqual(sqlCommand, userId, bookId);
+            ResultSet resultRt = databaseManager.executeQuery(sqlCommand.command());
             if (!resultRt.next()) return -7026;
-            return databaseManager.executeUpdate("update rents set Rent=0 where UserId='" + userId +
-                    "' and BookId='" + bookId + "' and Rent=1");
+            sqlCommand = new UpdateSql("rents");
+            sqlCommand = new EqualIntSql(sqlCommand, "Rent", 0);
+            sqlCommand = AllEqual(sqlCommand, userId, bookId);
+            return databaseManager.executeUpdate(sqlCommand.command());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-    public int SearchData(String search) {
+    public SqlCommand AllEqual(SqlCommand sqlCommand, String userId, String bookId) {
+        sqlCommand = new ConjunctionSql(sqlCommand, "where");
+        sqlCommand = new EqualStrSql(sqlCommand, "UserId", userId);
+        sqlCommand = new ConjunctionSql(sqlCommand, "and");
+        sqlCommand = new EqualStrSql(sqlCommand, "BookId", bookId);
+        sqlCommand = new ConjunctionSql(sqlCommand, "and");
+        sqlCommand = new EqualIntSql(sqlCommand, "Rent", 1);
+        return sqlCommand;
+    }
+
+    public String[][] SearchData(String tableName, String data) {
+        List<String[]> results = new ArrayList<>();
         try {
-            ResultSet resultSet = databaseManager.executeQuery("select * from " + search);
+            SqlCommand sqlCommand = new SelectSql(tableName, "*");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Name", data);
+            ResultSet resultSet = databaseManager.executeQuery(sqlCommand.command());
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("Id") + ", " + resultSet.getString("Name"));
+                String[] singleResult = {resultSet.getString("Id"), resultSet.getString("Name") };
+                results.add(singleResult);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 1;
+        return results.toArray(new String[results.size()][]);
+    }
+    public String[][] SearchRentData(String data) {
+        List<String[]> results = new ArrayList<String[]>();
+        try {
+            SqlCommand sqlCommand = new SelectSql("users", "Id");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Name", data);
+            ResultSet resultRt = databaseManager.executeQuery(sqlCommand.command());
+            String userId;
+            if (resultRt.next()) userId = resultRt.getString("Id");
+            else return results.toArray(new String[0][]);
+            sqlCommand = new SelectSql("rents", "*");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "UserId", userId);
+            ResultSet resultSet = databaseManager.executeQuery(sqlCommand.command());
+            while (resultSet.next()) {
+                String rentInfo;
+                if (resultSet.getInt("Rent") == 0) rentInfo = "returned";
+                else rentInfo = "rent";
+                String[] singleResult = {resultSet.getString("BookId"), rentInfo };
+                results.add(singleResult);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results.toArray(new String[results.size()][]);
     }
 }

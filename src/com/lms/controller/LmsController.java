@@ -39,13 +39,13 @@ public class LmsController {
                 view.SetButtonListener(new ExecuteAddBook());
                 break;
             case 4:
-                view.SetButtonListener(new ExecuteSearch());
+                view.SetButtonListener(new ExecuteBookSearch());
                 break;
             case 5:
-                //TODO 구현
+                view.SetButtonListener(new ExecuteUserSearch());
                 break;
             case 6:
-                //TODO 구현
+                view.SetButtonListener(new ExecuteRentSearch());
                 break;
         }
         view.ClearInsert();
@@ -101,11 +101,28 @@ public class LmsController {
         }
     }
 
-    class ExecuteSearch implements ActionListener {
+    class ExecuteBookSearch implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            model.SearchBook(view.GetTextfield1(), view.GetTextfield2());
-            view.SetResultView(model.GetResult());
+            model.Search("books", view.GetTextfield2());
+            view.setTable(model.ReturnColumnNames(), model.ReturnDataList());
+            view.ClearInsert();
+        }
+    }
+    class ExecuteUserSearch implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            model.Search("users", view.GetTextfield2());
+            view.setTable(model.ReturnColumnNames(), model.ReturnDataList());
+            view.ClearInsert();
+        }
+    }
+
+    class ExecuteRentSearch implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            model.SearchRent(view.GetTextfield2());
+            view.setTable(model.ReturnColumnNames(), model.ReturnDataList());
             view.ClearInsert();
         }
     }
