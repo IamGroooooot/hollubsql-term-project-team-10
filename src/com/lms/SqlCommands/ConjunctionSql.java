@@ -7,6 +7,6 @@ public class ConjunctionSql extends SqlDecorator {
         this.conjunction = conjunction;
     }
     public String command() {
-        return this.command() + " " + this.conjunction + " ";
+        return this.sqlCommand.command() + " " + this.conjunction + " ";
     }
 }

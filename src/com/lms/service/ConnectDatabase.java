@@ -54,11 +54,13 @@ public class ConnectDatabase {
     public int AddData(String userId, String bookId) {
         try {
             SqlCommand sqlCommand = new SelectSql("books", "Id");
-            sqlCommand = new ConjunctionSql(sqlCommand, "from");
-            SqlCommand userCommand = new EqualStrSql(sqlCommand, "Id", userId);
-            SqlCommand bookCommand = new EqualStrSql(sqlCommand, "Id", bookId);
-            ResultSet resultBk = databaseManager.executeQuery(userCommand.command());
-            ResultSet resultUsr = databaseManager.executeQuery(bookCommand.command());
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Id", bookId);
+            ResultSet resultBk = databaseManager.executeQuery(sqlCommand.command());
+            sqlCommand = new SelectSql("users", "Id");
+            sqlCommand = new ConjunctionSql(sqlCommand, "where");
+            sqlCommand = new EqualStrSql(sqlCommand, "Id", userId);
+            ResultSet resultUsr = databaseManager.executeQuery(sqlCommand.command());
             if (!resultBk.next() || !resultUsr.next()) return -7026;
             Date today = new Date();
             SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
