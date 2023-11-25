@@ -93,7 +93,7 @@ public class GUIApp {
         bookAddRadioButton.addActionListener(action4);
         bookSearchRadioButton.addActionListener(action5);
         userSearchRadioButton.addActionListener(action6);
-        bookBorrowRadioButton.addActionListener(action7);
+        bookBorrowHistoryRadioButton.addActionListener(action7);
     }
 
     private void initUI() {
