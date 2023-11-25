@@ -86,9 +86,24 @@ public class LmsService {
         else result = "Completed";
     }
 
-    public void SearchBook(String bookId, String bookName) {
-        result = String.valueOf(connectDatabase.SearchData(bookId));
+    public void Search(String tableName, String name) {
+        dataList = connectDatabase.SearchData(tableName, name);
+        columnNames = new String[]{"Id", "Name"};
     }
+
+    public void SearchRent(String name) {
+        dataList = connectDatabase.SearchRentData(name);
+        columnNames = new String[] {"Book Id", "Rent Status"};
+    }
+
+    public String[] ReturnColumnNames() {
+        return columnNames;
+    }
+
+    public Object[][] ReturnDataList() {
+        return dataList;
+    }
+
 
     /** DB 쿼리 예시 코드
     public void dbTestCode() {
