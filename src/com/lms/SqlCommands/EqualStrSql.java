@@ -1,6 +1,7 @@
 package com.lms.SqlCommands;
 
 public class EqualStrSql extends SqlDecorator {
+    // Attribute=string 형태 추가
     String element;
     String value;
     public EqualStrSql(SqlCommand sqlCommand, String element, String value) {

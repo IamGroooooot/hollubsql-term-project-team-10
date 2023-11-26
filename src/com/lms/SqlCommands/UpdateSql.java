@@ -1,6 +1,7 @@
 package com.lms.SqlCommands;
 
 public class UpdateSql extends SqlCommand {
+    // update table set 형태 제작
     String tableName;
     public UpdateSql(String tableName) {
         this.tableName = tableName;
