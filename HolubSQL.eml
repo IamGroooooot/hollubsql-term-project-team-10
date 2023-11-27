@@ -3,6 +3,5 @@
 	<contentEntry url="file://$MODULE_DIR$"/>
 	<levels>
 		<level name="junit.jupiter" value="project"/>
-		<level name="forms_rt" value="project"/>
 	</levels>
 </component>
