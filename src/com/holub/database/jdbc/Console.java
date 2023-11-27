@@ -233,29 +233,28 @@ public class Console {
 
     //----------------------------------------------------------------------
     private void openDatabase() {
-        String databaseName;
-        while (true) {
-            databaseName = JOptionPane.showInputDialog(
-                    "Enter database directory (e.g. c:/tmp/foo)\n"
-                            + "Directory must exist.");
+        String os = System.getProperty("os.name").toLowerCase();
+        String homeDirectory = System.getProperty("user.home");
+        // Windows: c:/dp2023 Linux: ~/dp2023
+        String databaseName = os.contains("win") ? "c:/dp2023" : homeDirectory + "/dp2023";
+        String message = "Database directory is regarded as " + databaseName + ".\n"
+                + "This Directory must exist.";
+        JOptionPane.showMessageDialog(mainFrame, message, "Database name", JOptionPane.QUESTION_MESSAGE);
 
-            if (databaseName == null)
-                System.exit(1);
+        File database = new File(databaseName);
+        if (!database.exists() || !database.isDirectory()) {
+            JOptionPane.showMessageDialog(
+                    mainFrame,
+                    "Directory " + databaseName + " does not exist.\n" +
+                            "Please create it before continuing.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
 
-            File database = new File(databaseName);
-            if (database.exists() && database.isDirectory())
-                break;
-            else
-                JOptionPane.showMessageDialog(
-                        mainFrame,
-                        "Directory " + databaseName + " does not exist.\n" +
-                                "Please create it before continuing.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
 
         try {
-            connection = DriverManager.getConnection("file:/" + databaseName, "harpo", "swordfish");
+            connection = DriverManager.getConnection("file:" + databaseName, "harpo", "swordfish");
             statement = connection.createStatement();
         } catch (SQLException e) {
             displayException("Couldn't open database: " + databaseName, e);
