@@ -742,7 +742,6 @@ public final class Database {    /* The directory that represents the database.
             affectedRows = doDelete(tableName, expr());
         } else if (in.matchAdvance(SELECT) != null) {
             List columns = idList();
-
             String into = null;
             if (in.matchAdvance(INTO) != null)
                 into = in.required(IDENTIFIER);
@@ -750,8 +749,20 @@ public final class Database {    /* The directory that represents the database.
             in.required(FROM);
             List requestedTableNames = idList();
 
+            // If the columns list is null, then *
+            if (columns == null) {
+                columns = new ArrayList();
+
+                for (Iterator i = requestedTableNames.iterator(); i.hasNext();) {
+                    String tableName = (String) i.next();
+                    Table table = (Table) tables.get(tableName);
+                    columns.addAll(table.getColumns());
+                }
+            }
+
             Expression where = (in.matchAdvance(WHERE) == null)
                     ? null : expr();
+
             Table result = doSelect(columns, into,
                     requestedTableNames, where);
             return result;
@@ -1013,10 +1024,10 @@ public final class Database {    /* The directory that represents the database.
 
         Table primary = (Table) tables.get(tableNames.next());
 
-        List participantsInJoin = new ArrayList();
+        List<Table> participantsInJoin = new ArrayList();
         while (tableNames.hasNext()) {
             String participant = (String) tableNames.next();
-            participantsInJoin.add(tables.get(participant));
+            participantsInJoin.add((Table) tables.get(participant));
         }
 
         // Now do the select operation. First create a Strategy

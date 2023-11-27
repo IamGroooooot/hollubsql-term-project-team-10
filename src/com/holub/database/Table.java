@@ -28,6 +28,7 @@ package com.holub.database;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -280,6 +281,9 @@ public interface Table extends Serializable, Cloneable {
      * @see #isDirty
      */
     void export(Table.Exporter importer) throws IOException;
+
+    // get all columns
+    ArrayList<String> getColumns();
 
     /*******************************************************************
      * Used for exporting tables in various formats. Note that

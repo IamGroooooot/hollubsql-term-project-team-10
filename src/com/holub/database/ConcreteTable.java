@@ -196,6 +196,11 @@ import java.util.*;
         isDirty = false;
     }
 
+    @Override
+    public ArrayList<String> getColumns() {
+        return new ArrayList<>(Arrays.asList(columnNames));
+    }
+
     // @import-export-end
     // ----------------------------------------------------------------------
     // Inserting
