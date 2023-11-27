@@ -27,6 +27,7 @@
 package com.holub.database;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -140,6 +141,11 @@ public class UnmodifiableTable implements Table {
 
     public void export(Table.Exporter exporter) throws IOException {
         wrapped.export(exporter);
+    }
+
+    @Override
+    public ArrayList<String> getColumns() {
+        return wrapped.getColumns();
     }
 
     public String toString() {
