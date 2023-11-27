@@ -236,7 +236,7 @@ public class Console {
         String os = System.getProperty("os.name").toLowerCase();
         String homeDirectory = System.getProperty("user.home");
         // Windows: c:/dp2023 Linux: ~/dp2023
-        String databaseName = os.contains("win") ? "c:/dp2023" : homeDirectory + "/dp2023";
+        String databaseName = os.contains("win") ? "/dp2023" : homeDirectory + "/dp2023";
         String message = "Database directory is regarded as " + databaseName + ".\n"
                 + "This Directory must exist.";
         JOptionPane.showMessageDialog(mainFrame, message, "Database name", JOptionPane.QUESTION_MESSAGE);
