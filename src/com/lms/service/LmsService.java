@@ -89,13 +89,13 @@ public class LmsService {
 
     private void SetResultWhenAdd(int resultNum) {
         if (resultNum == -7026) result = "Id Already Exists";
-        else if (resultNum == -1) result = "database error";
+        else if (resultNum == -1 || resultNum == 0) result = "database error";
         else result = "Inserted";
     }
 
     private void SetResultWhenRent(int resultNum) {
         if (resultNum == -7026) result = "Id Does Not Exist";
-        else if (resultNum == -1) result = "database error";
+        else if (resultNum == -1 || resultNum == 0) result = "database error";
         else result = "Completed";
     }
 
