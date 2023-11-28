@@ -1,22 +1,18 @@
 package com.lms.service;
 
-import com.lms.repository.DatabaseManager;
-
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class LmsService {
     private String label1;
     private String label2;
     private String result = "";
-    private ConnectDatabase connectDatabase;
+    private UpdateDatabase updateDatabase;
+    private SearchDatabase searchDatabase;
     private String[] columnNames;
     private Object[][] dataList;
 
-    public LmsService(ConnectDatabase connectDatabase) {
+    public LmsService(UpdateDatabase updateDatabase, SearchDatabase searchDatabase) {
         SetLabelValues(0);
-        this.connectDatabase = connectDatabase;
+        this.searchDatabase = searchDatabase;
+        this.updateDatabase = updateDatabase;
     }
 
     public String GetLabel1() {
@@ -55,45 +51,68 @@ public class LmsService {
     }
 
     public void BorrowBook(String userId, String bookId) {
-        int resultNum = connectDatabase.AddData(userId, bookId);
+        if (!searchDatabase.CheckItemExist("users", userId) ||
+                !searchDatabase.CheckItemExist("books", bookId) ) {
+            SetResultWhenRent(-7026);
+            return;
+        }
+        int resultNum = updateDatabase.AddData(userId, bookId);
         SetResultWhenRent(resultNum);
     }
 
     public void ReturnBook(String userId, String bookId) {
-        int resultNum = connectDatabase.ReturnUpdate(userId, bookId);
+        if (!searchDatabase.CheckRentExist(userId, bookId)) {
+            SetResultWhenRent(-7026);
+            return;
+        }
+        int resultNum = updateDatabase.ReturnUpdate(userId, bookId);
         SetResultWhenRent(resultNum);
     }
 
     public void AddUser(String userId, String userName) {
-        int resultNum = connectDatabase.AddData("users", userId, userName);
+        if (searchDatabase.CheckItemExist("users", userId)) {
+            SetResultWhenAdd(-7026);
+            return;
+        }
+        int resultNum = updateDatabase.AddData("users", userId, userName);
         SetResultWhenAdd(resultNum);
     }
 
     public void AddBook(String bookId, String bookName) {
-        int resultNum = connectDatabase.AddData("books", bookId, bookName);
+        if (searchDatabase.CheckItemExist("books", bookId)) {
+            SetResultWhenAdd(-7026);
+            return;
+        }
+        int resultNum = updateDatabase.AddData("books", bookId, bookName);
         SetResultWhenAdd(resultNum);
     }
 
     private void SetResultWhenAdd(int resultNum) {
-        assert resultNum == 1 || resultNum == -7026;
         if (resultNum == -7026) result = "Id Already Exists";
+        else if (resultNum == -1) result = "database error";
         else result = "Inserted";
     }
 
     private void SetResultWhenRent(int resultNum) {
-        assert resultNum == 1 || resultNum == -7026;
         if (resultNum == -7026) result = "Id Does Not Exist";
+        else if (resultNum == -1) result = "database error";
         else result = "Completed";
     }
 
     public void Search(String tableName, String name) {
-        dataList = connectDatabase.SearchData(tableName, name);
+        dataList = searchDatabase.SearchData(tableName, name);
         columnNames = new String[]{"Id", "Name"};
     }
 
     public void SearchRent(String name) {
-        dataList = connectDatabase.SearchRentData(name);
         columnNames = new String[] {"Book Id", "Rent Status"};
+        String userId = searchDatabase.GetItemString("users", "Id",
+                "Name", name);
+        if (userId == null) {
+            dataList = new String[0][];
+            return;
+        }
+        dataList = searchDatabase.SearchRentData(userId);
     }
 
     public String[] ReturnColumnNames() {
