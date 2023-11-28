@@ -42,4 +42,22 @@ public class UpdateDatabaseTest {
         ResultSet resultSet = databaseManager.executeQuery("select * from rents where BookId='1' and UserId='2'");
         Assertions.assertTrue(resultSet.next());
     }
+
+    @DisplayName("Test Return books")
+    @Test
+    void TestReturnBook() throws Exception {
+        updateDatabase.AddData("1", "2");
+        updateDatabase.ReturnUpdate("1", "2");
+        ResultSet resultSet = databaseManager.executeQuery("select Rent from rents where BookId='2' and UserId='1'");
+        if (resultSet.next()) {
+            Assertions.assertEquals(0, resultSet.getInt("Rent"));
+        }
+    }
+
+    @DisplayName("Test Return books fail")
+    @Test
+    void TestReturnBookFail() throws Exception {
+        int result = updateDatabase.ReturnUpdate("1", "2");
+        Assertions.assertEquals(0, result);
+    }
 }
