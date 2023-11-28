@@ -12,7 +12,7 @@ public class App {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame frame = new JFrame("GUIApp");
+                JFrame frame = new JFrame("Library Management System");
                 GUIApp view = new GUIApp();
                 frame.setContentPane(view.getjPanel());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
