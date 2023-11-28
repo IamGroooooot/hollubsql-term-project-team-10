@@ -12,6 +12,6 @@
 <people>
 	<last>2</last>
 	<first>Fred</first>
-	<addrId>Flintstone</addrId>
+	<addrId></addrId>
 </people>
 </peopleTable>

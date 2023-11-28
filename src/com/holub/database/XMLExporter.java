@@ -87,7 +87,8 @@ public class XMLExporter implements Table.Exporter {
             Object datum = data.next();
 
             out.write(String.format("\t<%s>", columnName));
-            out.write(datum.toString());
+            if (datum != null)
+                out.write(datum.toString());
             out.write(String.format("</%s>\n", columnName));
         }
 
