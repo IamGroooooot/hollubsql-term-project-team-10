@@ -50,7 +50,7 @@ public class LmsService {
         }
     }
 
-    public void BorrowBook(String userId, String bookId) {
+    public void BorrowBook(String bookId, String userId) {
         if (!searchDatabase.CheckItemExist("users", userId) ||
                 !searchDatabase.CheckItemExist("books", bookId) ) {
             SetResultWhenRent(-7026);
@@ -60,7 +60,7 @@ public class LmsService {
         SetResultWhenRent(resultNum);
     }
 
-    public void ReturnBook(String userId, String bookId) {
+    public void ReturnBook(String bookId, String userId) {
         if (!searchDatabase.CheckRentExist(userId, bookId)) {
             SetResultWhenRent(-7026);
             return;
