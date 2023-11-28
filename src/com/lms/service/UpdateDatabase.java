@@ -54,7 +54,7 @@ public class UpdateDatabase {
             SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             // 아이디를 갖고 대여기록 추가. 1은 대여를, 0은 반납 완료를 의미.
             return databaseManager.executeUpdate("insert into rents VALUES('" + date.format(today) + "', '" +
-                    userId + "', '" + bookId + "', 1)");
+                    bookId + "', '" + userId + "', 1)");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class UpdateDatabase {
     }
 
     public int ReturnUpdate(String userId, String bookId) {
-        // 대여
+        // 반납
         try {
             SqlCommand sqlCommand = new UpdateSql("rents");
             sqlCommand = new EqualIntSql(sqlCommand, "Rent", 0);
