@@ -82,6 +82,7 @@ public class GUIApp {
 
     public void ClearResult() {
         this.textArea1.setText(null);
+        setTable(new String[] {}, new Object[][] {});
     }
 
     public void SetRadioButtons(ActionListener action1, ActionListener action2, ActionListener action3,
