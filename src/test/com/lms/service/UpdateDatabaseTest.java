@@ -13,7 +13,7 @@ public class UpdateDatabaseTest {
     @BeforeEach
     void SetUp() throws Exception {
         databaseManager = new DatabaseManager();
-        databaseManager.openDatabase("test");
+        databaseManager.openDatabase(databaseName);
         updateDatabase = new UpdateDatabase(databaseManager);
     }
 
@@ -59,5 +59,10 @@ public class UpdateDatabaseTest {
     void TestReturnBookFail() throws Exception {
         int result = updateDatabase.ReturnUpdate("1", "2");
         Assertions.assertEquals(0, result);
+    }
+
+    @AfterEach
+    void End() throws Exception {
+        databaseManager.closeDatabase();
     }
 }
