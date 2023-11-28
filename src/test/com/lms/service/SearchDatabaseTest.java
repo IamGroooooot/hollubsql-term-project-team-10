@@ -1,10 +1,9 @@
 package com.lms.service;
 
 import com.lms.repository.DatabaseManager;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.Arrays;
 
 public class SearchDatabaseTest {
     private SearchDatabase searchDatabase;
@@ -55,6 +54,41 @@ public class SearchDatabaseTest {
         Assertions.assertFalse(searchDatabase.CheckRentExist("2", "1"));
     }
 
-    
+    @DisplayName("Test data search in books table by id")
+    @Test
+    void TestDataSearchBooks() throws Exception {
+        String[][] result = searchDatabase.SearchData("books", "2");
+        String[][] compareValue = {{"2", "2"}};
+        Assertions.assertTrue(Arrays.deepEquals(compareValue, result));
+    }
+
+    @DisplayName("Test search data not in users table by id")
+    @Test
+    void TestDataSearchUsersFail() throws Exception {
+        String[][] result = searchDatabase.SearchData("users", "5");
+        String[][] compareValue = {{}};
+        Assertions.assertFalse(Arrays.deepEquals(compareValue, result));
+    }
+
+    @DisplayName("Test data search in rents table by user id")
+    @Test
+    void TestDataSearchRent() throws Exception {
+        String[][] result = searchDatabase.SearchRentData("1");
+        String[][] compareValue = {{"2", "rent"}};
+        Assertions.assertTrue(Arrays.deepEquals(compareValue, result));
+    }
+
+    @DisplayName("Test data search not in rents table by user id")
+    @Test
+    void TestDataSearchRentFail() throws Exception {
+        String[][] result = searchDatabase.SearchRentData("5");
+        String[][] compareValue = {{}};
+        Assertions.assertFalse(Arrays.deepEquals(compareValue, result));
+    }
+
+    @AfterEach
+    void End() throws Exception {
+        databaseManager.closeDatabase();
+    }
 
 }
