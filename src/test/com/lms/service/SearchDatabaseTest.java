@@ -1,6 +1,8 @@
 package com.lms.service;
 
-import com.lms.repository.DatabaseManager;
+import com.main.lms.repository.DatabaseManager;
+import com.main.lms.service.SearchDatabase;
+import com.main.lms.service.UpdateDatabase;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;

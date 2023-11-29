@@ -1,6 +1,8 @@
 package com.holub.database;
 
-import com.holub.tools.ArrayIterator;
+import com.main.holub.database.Table;
+import com.main.holub.database.XMLExporter;
+import com.main.holub.tools.ArrayIterator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ class XMLExporterTest {
     private Writer out;
     private Table.Exporter exporter;
 
-    private  String tableName;
+    private String tableName;
     private String[] columnNames;
     private LinkedList rowSet;
 
