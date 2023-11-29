@@ -16,8 +16,12 @@ class DatabaseTest {
     private static final String sqlDirectoryPath = "src/test/com/holub/database/sql/";
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException, ParseFailure {
         theDatabase = new Database();
+        String sql = """
+                create database Dbase
+                """;
+        theDatabase.execute(sql);
     }
 
     @AfterEach
@@ -26,7 +30,7 @@ class DatabaseTest {
     }
 
     @Test
-    void testDatabase() throws IOException, ParseFailure {
+    void testOriginalDatabaseTestCase() throws IOException, ParseFailure {
         BufferedReader sql = new BufferedReader(
                 new FileReader(sqlDirectoryPath + "original-test.sql"));
 

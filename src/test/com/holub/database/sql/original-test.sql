@@ -1,5 +1,3 @@
-create database Dbase
-
 create table address \
 ( \
     addrId int, \
