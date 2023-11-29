@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A table is a database-like table that provides support for
@@ -56,6 +57,9 @@ public interface Table extends Serializable, Cloneable {
      * <code>commit(true)</code>, for example.
      */
     boolean ALL = true;
+
+    void setPrimaryKeys(List keys);
+    List getPrimaryKeys();
 
     /**
      * Return a shallow copy of the table (the contents are not
