@@ -70,19 +70,11 @@ public class LmsService {
     }
 
     public void AddUser(String userId, String userName) {
-        if (searchDatabase.CheckItemExist("users", userId)) {
-            SetResultWhenAdd(-7026);
-            return;
-        }
         int resultNum = updateDatabase.AddData("users", userId, userName);
         SetResultWhenAdd(resultNum);
     }
 
     public void AddBook(String bookId, String bookName) {
-        if (searchDatabase.CheckItemExist("books", bookId)) {
-            SetResultWhenAdd(-7026);
-            return;
-        }
         int resultNum = updateDatabase.AddData("books", bookId, bookName);
         SetResultWhenAdd(resultNum);
     }
