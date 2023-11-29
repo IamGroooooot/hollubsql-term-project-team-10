@@ -29,6 +29,7 @@ package com.holub.database;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * This decorator of the Table class just wraps another table,
@@ -57,6 +58,17 @@ public class UnmodifiableTable implements Table {
 
     public UnmodifiableTable(Table wrapped) {
         this.wrapped = wrapped;
+    }
+
+    @Override
+    public void setPrimaryKeys(List key) {
+        illegal();
+        this.wrapped.setPrimaryKeys(key);
+    }
+
+    @Override
+    public List getPrimaryKeys() {
+        return this.wrapped.getPrimaryKeys();
     }
 
     /**

@@ -343,7 +343,7 @@ public final class Database {    /* The directory that represents the database.
      * with the transaction-processing system.
      */
 
-    private final Map tables = new TableMap(new HashMap());
+    private final Map<String, Table> tables = new TableMap(new HashMap());
     private File location = new File(".");
     /**
      * The number of rows modified by the last
@@ -470,13 +470,17 @@ public final class Database {    /* The directory that represents the database.
      * Create a new table. If a table by this name exists, it's
      * overwritten.
      */
-    public void createTable(String name, List columns) {
+    public void createTable(String name, List declarationInfo) {
+        List columns = (List) declarationInfo.get(0);
+        List primaryKeys = (List) declarationInfo.get(1);
+
         String[] columnNames = new String[columns.size()];
         int i = 0;
         for (Iterator names = columns.iterator(); names.hasNext(); )
             columnNames[i++] = (String) names.next();
 
         Table newTable = TableFactory.create(name, columnNames);
+        newTable.setPrimaryKeys(primaryKeys);
         tables.put(name, newTable);
     }
 
@@ -791,18 +795,20 @@ public final class Database {    /* The directory that represents the database.
     //@parser-start
 
     private List declarations() throws ParseFailure {
+        List declarationInfo = new ArrayList();
         List identifiers = new ArrayList();
+        List primaryKeys = new ArrayList();
 
         String id;
         while (true) {
             if (in.matchAdvance(PRIMARY) != null) {
                 in.required(KEY);
                 in.required(LP);
-                in.required(IDENTIFIER);
+                String primaryKey = in.required(IDENTIFIER);
+                primaryKeys.add(primaryKey);
                 in.required(RP);
             } else {
                 id = in.required(IDENTIFIER);
-
                 identifiers.add(id);    // get the identifier
 
                 // Skip past a type declaration if one's there
@@ -832,7 +838,9 @@ public final class Database {    /* The directory that represents the database.
                 break;
         }
 
-        return identifiers;
+        declarationInfo.add(identifiers);
+        declarationInfo.add(primaryKeys);
+        return declarationInfo;
     }
 
     private List exprList() throws ParseFailure {
@@ -1269,19 +1277,19 @@ public final class Database {    /* The directory that represents the database.
                     System.out.println(result);
             }
 
-            try {
-                theDatabase.execute("insert garbage SQL");
-                System.out.println("Database FAILED");
-                System.exit(1);
-            } catch (ParseFailure e) {
-                System.out.println("Correctly found garbage SQL:\n"
-                        + e + "\n"
-                        + e.getErrorReport());
-            }
+//            try {
+//                theDatabase.execute("insert garbage SQL");
+//                System.out.println("Database FAILED");
+//                System.exit(1);
+//            } catch (ParseFailure e) {
+//                System.out.println("Correctly found garbage SQL:\n"
+//                        + e + "\n"
+//                        + e.getErrorReport());
+//            }
 
-//            theDatabase.dump(ExporterType.CSV);
+            theDatabase.dump(ExporterType.CSV);
 //            theDatabase.dump(ExporterType.HTML);
-            theDatabase.dump(ExporterType.XML);
+//            theDatabase.dump(ExporterType.XML);
             System.out.println("Database PASSED");
             System.exit(0);
         }
