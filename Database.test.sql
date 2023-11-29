@@ -22,63 +22,18 @@ delete from name where last like '%eas%'
 select * from address
 select * from name
 
-select first, last from name where last = 'Flintstone'
-select first, last, street, city, zip \
-	from name, address where name.addrId = address.addrId
+create database Dbase
 
-create table id (addrId, description)
-insert into id VALUES (0, 'AddressID=0')
-insert into id VALUES (1, 'AddressID=1')
-select first, last, street, city, zip, description \
-	from name, address, id \
-	WHERE name.addrId = address.addrId AND name.addrId = id.addrId
+create table name2 \
+( \
+    id     integer, \
+    first  varchar(10), \
+    last   varchar(10), \
+    addrId integer, \
+    primary key (id) \
+)
 
-drop table id
-
-select first, last from name where last='Flintstone' \
-	AND first='Fred' OR first like '%lle%'
-
-create table foo (first, second, third, fourth)
-insert into foo (first,third,fourth) values(1,3,4)
-update foo set fourth=null where fourth=4
-select  * from foo
-select  * from foo where second=NULL AND third<>NULL
-drop table foo
-
-create table foo (only)
-insert into foo values('xxx')
-begin
-insert into foo values('should not see this')
-rollback
-select * from foo
-
-begin
-insert into foo values('yyy')
-select * from foo
-begin
-insert into foo values('should not see this')
-rollback
-begin
-insert into foo values('zzz')
-select * from foo
-commit
-select * from foo
-commit
-select * from foo
-insert into foo values('end')
-select * from foo
-drop table foo
-
-create table foo (only)
-begin
-insert into foo values('a')
-insert into foo values('b')
-begin
-insert into foo values('c')
-insert into foo values('d')
-select * from foo
-commit
-rollback
-select * from foo
-
-drop table foo
+    insert into name2 VALUES (0, 'Fred',  'Flintstone', '1')
+insert into name2 VALUES (1, 'Wilma', 'Flintstone', '1')
+insert into name2 VALUES (1, 'Wilma', 'Flintstone', '1')
+select * from name

@@ -61,18 +61,19 @@ import java.util.*;
     // Be sure to change the clone() method if you modify anything about
     // any of these fields.
 
-    private LinkedList rowSet = new LinkedList();
+    private LinkedList<Object> rowSet = new LinkedList<>();
     private String[] columnNames;
     private String tableName;
+    private final List<String> primaryKeys = new ArrayList<String>();
 
     private transient boolean isDirty = false;
-    private final transient LinkedList transactionStack = new LinkedList();
+    private final transient LinkedList transactionStack = new LinkedList<>();
 
     /**********************************************************************
      * Create a table with the given name and columns.
      *
      * @param tableName the name of the table.
-     * @param an        array of Strings that specify the column names.
+     * @param columnNames        array of Strings that specify the column names.
      */
     public ConcreteTable(String tableName, String[] columnNames) {
         this.tableName = tableName;
@@ -210,7 +211,6 @@ import java.util.*;
                 + "each specified column";
 
         Object[] newRow = new Object[width()];
-
         for (int i = 0; i < intoTheseColumns.length; ++i)
             newRow[indexOf(intoTheseColumns[i])] = values[i];
 
@@ -259,10 +259,30 @@ import java.util.*;
     }
 
     // ----------------------------------------------------------------------
-    private void doInsert(Object[] newRow) {
+    private void doInsert(Object[] newRow) throws IllegalStateException  {
+        checkPrimaryKeyCondition(newRow);
+
         rowSet.add(newRow);
         registerInsert(newRow);
         isDirty = true;
+    }
+
+    private void checkPrimaryKeyCondition(Object[] newRow) {
+        for (String pk : this.primaryKeys) {
+            int pkIndex = indexOf(pk);
+
+            boolean isPkNull = newRow.length <= pkIndex || newRow[pkIndex] == null;
+            if (isPkNull) {
+                throw new IllegalStateException("Primary key(" + pk + ") is null");
+            }
+
+            boolean isDuplicated = rowSet.stream()
+                    .<Object>map(row -> ((Object[]) row)[pkIndex])
+                    .anyMatch(elem -> elem.equals(newRow[pkIndex]));
+            if (isDuplicated) {
+                throw new IllegalStateException("Primary key(" + pk + ") is duplicated");
+            }
+        }
     }
 
     // @insert-end
@@ -487,6 +507,16 @@ import java.util.*;
 
     private int width() {
         return columnNames.length;
+    }
+
+    @Override
+    public void setPrimaryKeys(List key) {
+        this.primaryKeys.addAll(key);
+    }
+
+    @Override
+    public List getPrimaryKeys() {
+        return this.primaryKeys;
     }
 
     // ----------------------------------------------------------------------
