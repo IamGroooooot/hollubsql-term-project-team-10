@@ -32,7 +32,7 @@ public class UpdateDatabase {
                     """);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class UpdateDatabase {
             return databaseManager.executeUpdate("insert into " + tableName + " VALUES('" +
                     idValue + "', '" + nameValue + "')");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return -1;
     }
@@ -55,7 +55,7 @@ public class UpdateDatabase {
             return databaseManager.executeUpdate("insert into rents VALUES('" + date.format(today) + "', '" +
                     bookId + "', '" + userId + "', 1)");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return -1;
     }
@@ -73,7 +73,7 @@ public class UpdateDatabase {
             sqlCommand = new EqualIntSql(sqlCommand, "Rent", 1);
             return databaseManager.executeUpdate(sqlCommand.command());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return -1;
     }

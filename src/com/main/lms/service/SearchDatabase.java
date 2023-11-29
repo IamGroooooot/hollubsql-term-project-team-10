@@ -23,7 +23,7 @@ public class SearchDatabase {
             // 있었다면 추가 거부
             return resultSet.next();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -40,7 +40,7 @@ public class SearchDatabase {
                 return resultSet.getString(returnElement);
             } else return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }

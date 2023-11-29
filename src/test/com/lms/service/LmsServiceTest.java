@@ -67,9 +67,10 @@ class LmsServiceTest {
     @DisplayName("Borrow book success")
     @Test
     void BorrowBookTest() throws Exception {
-        updateDatabase.AddData("users", "3", "3");
+        Thread.sleep(100);
+        updateDatabase.AddData("users", "10", "3");
         updateDatabase.AddData("books", "4", "4");
-        lmsService.BorrowBook("4", "3");
+        lmsService.BorrowBook("4", "10");
         Assertions.assertEquals("Completed", lmsService.GetResult());
     }
 

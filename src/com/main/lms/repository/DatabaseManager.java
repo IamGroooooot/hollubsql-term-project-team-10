@@ -46,7 +46,7 @@ public class DatabaseManager {
         if (!database.exists())
             database.mkdir();
 
-        String path = System.getProperty("user.dir")+"\\"+database.getPath();
+        String path = System.getProperty("user.dir") + File.separator + database.getPath();
 
         try {
             connection = DriverManager.getConnection(Path.of(path).toUri().toString(), "harpo", "swordfish");
