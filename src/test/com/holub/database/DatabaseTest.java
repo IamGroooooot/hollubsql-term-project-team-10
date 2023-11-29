@@ -66,4 +66,69 @@ class DatabaseTest {
 
         assertEquals(exception.getMessage(), "\"into\" expected.");
     }
+
+
+    @Test
+    void testPrimaryKey() throws IOException, ParseFailure {
+        String tableSql = """
+                create table user
+                (
+                    id int,
+                    name varchar(20),
+                    addr varchar(20),
+                    primary key (id)
+                )
+                """;
+        theDatabase.execute(tableSql);
+        theDatabase.execute("insert into user(id, name, addr) values (1, 'Hoseong', 'Seoul')");
+        theDatabase.execute("insert into user(id, name, addr) values (2, 'Juhyeong', 'Seoul')");
+        String selectSql = """
+                select * from user
+                """;
+        String result = theDatabase.execute(selectSql).toString();
+        System.out.println(result);
+        assertTrue(result.contains("1	Hoseong	Seoul"));
+        assertTrue(result.contains("2	Juhyeong	Seoul"));
+    }
+
+    @Test
+    void testPrimaryKeyNullFail() throws IOException, ParseFailure {
+        String tableSql = """
+                create table user
+                (
+                    id int,
+                    name varchar(20),
+                    addr varchar(20),
+                    primary key (id)
+                )
+                """;
+        theDatabase.execute(tableSql);
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            theDatabase.execute("insert into user(id, name, addr) values (null, 'Juhyeong', 'Seoul')");
+            fail("Test failed");
+        });
+
+        assertEquals(exception.getMessage(), "Primary key(id) is null");
+    }
+
+    @Test
+    void testPrimaryKeyDuplicatedFail() throws IOException, ParseFailure {
+        String tableSql = """
+                create table user
+                (
+                    id int,
+                    name varchar(20),
+                    addr varchar(20),
+                    primary key (id)
+                )
+                """;
+        theDatabase.execute(tableSql);
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            theDatabase.execute("insert into user(id, name, addr) values (1, 'Hoseong', 'Seoul')");
+            theDatabase.execute("insert into user(id, name, addr) values (1, 'Juhyeong', 'Seoul')");
+            fail("Test failed");
+        });
+
+        assertEquals(exception.getMessage(), "Primary key(id) is duplicated");
+    }
 }
