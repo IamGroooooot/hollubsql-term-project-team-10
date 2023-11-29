@@ -41,12 +41,16 @@ public class DatabaseManager {
         if (databaseName == null)
             System.exit(1);
 
-        File database = new File(databaseName);
+        String os = System.getProperty("os.name").toLowerCase();
+        String homeDirectory = System.getProperty("user.home");
+        String databaseRootPath = os.contains("win") ? "/dp2023/" : homeDirectory + "/dp2023/";
+
+        File database = new File(databaseRootPath + databaseName);
 
         if (!database.exists())
             database.mkdir();
 
-        String path = System.getProperty("user.dir") + File.separator + database.getPath();
+        String path = database.getPath();
 
         try {
             connection = DriverManager.getConnection(Path.of(path).toUri().toString(), "harpo", "swordfish");
