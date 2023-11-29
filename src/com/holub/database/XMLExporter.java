@@ -80,19 +80,19 @@ public class XMLExporter implements Table.Exporter {
     }
 
     public void storeRow(Iterator data) throws IOException {
-        out.write(String.format("<%s>\n", tableName));
+        out.write(String.format("\t<%s>\n", tableName));
 
         for (Iterator i = new ArrayIterator(columnNames); i.hasNext(); ) {
             String columnName = i.next().toString();
             Object datum = data.next();
 
-            out.write(String.format("\t<%s>", columnName));
+            out.write(String.format("\t\t<%s>", columnName));
             if (datum != null)
                 out.write(datum.toString());
             out.write(String.format("</%s>\n", columnName));
         }
 
-        out.write(String.format("</%s>\n", tableName));
+        out.write(String.format("\t</%s>\n", tableName));
     }
 
     public void startTable() throws IOException {}

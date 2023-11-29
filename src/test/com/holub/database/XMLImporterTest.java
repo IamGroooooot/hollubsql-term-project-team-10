@@ -13,22 +13,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class XMLImporterTest {
     private static final String fileName = "people_xml_test";
     private static final String fileContents = "<peopleTable>\n" +
-            "<people>\n" +
-            "\t<last>Holub</last>\n" +
-            "\t<first>Allen</first>\n" +
-            "\t<addrId>1</addrId>\n" +
-            "</people>\n" +
-            "<people>\n" +
-            "\t<last>Flintstone</last>\n" +
-            "\t<first>Wilma</first>\n" +
-            "\t<addrId>2</addrId>\n" +
-            "</people>\n" +
-            "<people>\n" +
-            "\t<last>2</last>\n" +
-            "\t<first>Fred</first>\n" +
-            "\t<addrId></addrId>\n" +
-            "</people>\n" +
-            "</peopleTable>\n";
+            "\t<people>\n" +
+            "\t\t<last>Holub</last>\n" +
+            "\t\t<first>Allen</first>\n" +
+            "\t\t<addrId>1</addrId>\n" +
+            "\t</people>\n" +
+            "\t<people>\n" +
+            "\t\t<last>Flintstone</last>\n" +
+            "\t\t<first>Wilma</first>\n" +
+            "\t\t<addrId>2</addrId>\n" +
+            "\t</people>\n" +
+            "\t<people>\n" +
+            "\t\t<last>2</last>\n" +
+            "\t\t<first>Fred</first>\n" +
+            "\t\t<addrId></addrId>\n" +
+            "\t</people>\n" +
+            "</peopleTable>";
 
     private Reader in;
     private Table.Importer importer;
