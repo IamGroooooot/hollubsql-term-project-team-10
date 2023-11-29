@@ -24,9 +24,9 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.database;
+package com.main.holub.database;
 
-import com.holub.tools.ArrayIterator;
+import com.main.holub.tools.ArrayIterator;
 
 import java.io.BufferedReader;
 import java.io.IOException;

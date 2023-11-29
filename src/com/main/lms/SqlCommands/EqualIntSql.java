@@ -1,4 +1,4 @@
-package com.lms.SqlCommands;
+package com.main.lms.SqlCommands;
 
 public class EqualIntSql extends SqlDecorator {
     // Attribute=int 형태 추가

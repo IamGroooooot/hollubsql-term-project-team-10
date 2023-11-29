@@ -1,4 +1,4 @@
-package com.lms.vo;
+package com.main.lms.vo;
 
 public class UserVo {
     private String id;

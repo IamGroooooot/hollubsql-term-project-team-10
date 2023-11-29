@@ -1,4 +1,4 @@
-package com.lms.SqlCommands;
+package com.main.lms.SqlCommands;
 
 public abstract class SqlCommand {
     String command_text = "";

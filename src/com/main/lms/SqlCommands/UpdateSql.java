@@ -1,4 +1,4 @@
-package com.lms.SqlCommands;
+package com.main.lms.SqlCommands;
 
 public class UpdateSql extends SqlCommand {
     // update table set 형태 제작

@@ -24,10 +24,10 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.database.jdbc;
+package com.main.holub.database.jdbc;
 
-import com.holub.database.Cursor;
-import com.holub.database.jdbc.adapters.ResultSetMetaDataAdapter;
+import com.main.holub.database.Cursor;
+import com.main.holub.database.jdbc.adapters.ResultSetMetaDataAdapter;
 
 import java.sql.SQLException;
 

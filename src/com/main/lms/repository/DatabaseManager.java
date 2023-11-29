@@ -1,4 +1,4 @@
-package com.lms.repository;
+package com.main.lms.repository;
 
 import javax.swing.*;
 import java.io.*;
@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.sql.*;
 
 public class DatabaseManager {
-    private static final String driverName = "com.holub.database.jdbc.JDBCDriver";
+    private static final String driverName = "com.main.holub.database.jdbc.JDBCDriver";
     private Connection connection = null;
     private Statement statement = null;
 

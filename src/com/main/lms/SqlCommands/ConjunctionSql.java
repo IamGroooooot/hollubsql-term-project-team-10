@@ -1,4 +1,4 @@
-package com.lms.SqlCommands;
+package com.main.lms.SqlCommands;
 
 public class ConjunctionSql extends SqlDecorator {
     // where, and 같은 접속사?를 추가하는 클래스

@@ -1,7 +1,7 @@
-package com.lms.controller;
+package com.main.lms.controller;
 
-import com.lms.service.LmsService;
-import com.lms.ui.GUIApp;
+import com.main.lms.service.LmsService;
+import com.main.lms.ui.GUIApp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

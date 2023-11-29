@@ -24,7 +24,7 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.text;
+package com.main.holub.text;
 
 /**
  * Recognize a token that looks like a word. The match

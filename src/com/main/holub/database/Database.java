@@ -24,13 +24,13 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.database;
+package com.main.holub.database;
 
-import com.holub.text.ParseFailure;
-import com.holub.text.Scanner;
-import com.holub.text.Token;
-import com.holub.text.TokenSet;
-import com.holub.tools.ThrowableContainer;
+import com.main.holub.text.ParseFailure;
+import com.main.holub.text.Scanner;
+import com.main.holub.text.Token;
+import com.main.holub.text.TokenSet;
+import com.main.holub.tools.ThrowableContainer;
 
 import java.io.*;
 import java.net.URI;
@@ -619,7 +619,7 @@ public final class Database {    /* The directory that represents the database.
      *  	complete statement must be present (you cannot break a long
      *  	statement into multiple calls), and text
      *  	following the SQL statement is ignored.
-     *  @throws com.holub.text.ParseFailure if the SQL is corrupt.
+     *  @throws com.main.holub.text.ParseFailure if the SQL is corrupt.
      *  @throws IOException Database files couldn't be accessed or created.
      *  @see #affectedRows()
      */

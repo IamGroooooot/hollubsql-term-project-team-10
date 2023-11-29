@@ -24,7 +24,7 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.tools;
+package com.main.holub.tools;
 
 /**
  * A convenient container for realying a checked Exception

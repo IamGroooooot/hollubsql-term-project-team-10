@@ -1,11 +1,11 @@
-package com.lms;
+package com.main.lms;
 
-import com.lms.controller.LmsController;
-import com.lms.repository.DatabaseManager;
-import com.lms.service.SearchDatabase;
-import com.lms.service.UpdateDatabase;
-import com.lms.service.LmsService;
-import com.lms.ui.GUIApp;
+import com.main.lms.controller.LmsController;
+import com.main.lms.repository.DatabaseManager;
+import com.main.lms.service.SearchDatabase;
+import com.main.lms.service.UpdateDatabase;
+import com.main.lms.service.LmsService;
+import com.main.lms.ui.GUIApp;
 
 import javax.swing.*;
 

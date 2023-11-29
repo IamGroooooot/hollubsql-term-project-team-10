@@ -1,6 +1,6 @@
-package test.com.lms.repository;
+package com.lms.repository;
 
-import com.lms.repository.DatabaseManager;
+import com.main.lms.repository.DatabaseManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

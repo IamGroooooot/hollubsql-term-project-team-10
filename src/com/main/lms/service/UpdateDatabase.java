@@ -1,12 +1,11 @@
-package com.lms.service;
+package com.main.lms.service;
 
-import com.lms.SqlCommands.*;
-import com.lms.repository.DatabaseManager;
+import com.main.lms.SqlCommands.*;
+import com.main.lms.repository.DatabaseManager;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
 public class UpdateDatabase {
     private DatabaseManager databaseManager;

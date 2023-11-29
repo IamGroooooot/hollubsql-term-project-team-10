@@ -1,6 +1,8 @@
 package com.holub.database;
 
-import com.holub.tools.ArrayIterator;
+import com.main.holub.database.HTMLExporter;
+import com.main.holub.database.Table;
+import com.main.holub.tools.ArrayIterator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HTMLExporterTest {
     private static final String fileName = "people_html_test";

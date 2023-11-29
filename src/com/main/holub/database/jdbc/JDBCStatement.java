@@ -24,11 +24,11 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.database.jdbc;
+package com.main.holub.database.jdbc;
 
-import com.holub.database.Database;
-import com.holub.database.Table;
-import com.holub.database.jdbc.adapters.StatementAdapter;
+import com.main.holub.database.Database;
+import com.main.holub.database.Table;
+import com.main.holub.database.jdbc.adapters.StatementAdapter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

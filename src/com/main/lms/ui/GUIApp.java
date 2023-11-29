@@ -1,7 +1,7 @@
-package com.lms.ui;
+package com.main.lms.ui;
 
-import com.lms.service.LmsService;
-//import com.lms.service.impl.LmsServiceImpl;
+import com.main.lms.service.LmsService;
+//import com.main.lms.service.impl.LmsServiceImpl;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

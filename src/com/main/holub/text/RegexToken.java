@@ -24,7 +24,7 @@
  *    caused by bugs, including lost productivity or data)
  *    in any of this code.
  */
-package com.holub.text;
+package com.main.holub.text;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

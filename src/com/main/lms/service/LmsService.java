@@ -1,4 +1,4 @@
-package com.lms.service;
+package com.main.lms.service;
 
 public class LmsService {
     private String label1;

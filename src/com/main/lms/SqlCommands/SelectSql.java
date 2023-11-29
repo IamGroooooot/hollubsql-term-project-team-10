@@ -1,4 +1,4 @@
-package com.lms.SqlCommands;
+package com.main.lms.SqlCommands;
 
 public class SelectSql extends SqlCommand {
     // select value from table 형태 제작

@@ -1,13 +1,12 @@
 package com.lms.service;
 
-import com.lms.repository.DatabaseManager;
+import com.main.lms.repository.DatabaseManager;
+import com.main.lms.service.LmsService;
+import com.main.lms.service.SearchDatabase;
+import com.main.lms.service.UpdateDatabase;
 import org.junit.jupiter.api.*;
 
-import java.sql.Array;
-import java.sql.ResultSet;
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LmsServiceTest {
     private SearchDatabase searchDatabase;

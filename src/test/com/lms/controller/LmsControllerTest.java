@@ -1,13 +1,15 @@
 package com.lms.controller;
 
-import com.lms.repository.DatabaseManager;
-import com.lms.service.LmsService;
-import com.lms.service.SearchDatabase;
-import com.lms.service.UpdateDatabase;
-import com.lms.ui.GUIApp;
-import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.main.lms.controller.LmsController;
+import com.main.lms.repository.DatabaseManager;
+import com.main.lms.service.LmsService;
+import com.main.lms.service.SearchDatabase;
+import com.main.lms.service.UpdateDatabase;
+import com.main.lms.ui.GUIApp;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class LmsControllerTest {
     private LmsService model;

@@ -1,7 +1,7 @@
-package com.lms.service;
+package com.main.lms.service;
 
-import com.lms.SqlCommands.*;
-import com.lms.repository.DatabaseManager;
+import com.main.lms.SqlCommands.*;
+import com.main.lms.repository.DatabaseManager;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

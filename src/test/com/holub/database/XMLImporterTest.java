@@ -1,14 +1,14 @@
 package com.holub.database;
 
+import com.main.holub.database.Table;
+import com.main.holub.database.TableFactory;
+import com.main.holub.database.XMLImporter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.util.Iterator;
-import java.util.LinkedList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class XMLImporterTest {
     private static final String fileName = "people_xml_test";
