@@ -248,3 +248,5 @@ hs_err_pid*
 
 target/
 lib/
+
+!LMS.jar
