@@ -9,8 +9,10 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-class XMLExporterTest {
-    private static final String fileName = "people_xml_test";
+import static org.junit.jupiter.api.Assertions.*;
+
+class HTMLExporterTest {
+    private static final String fileName = "people_html_test";
 
     private Writer out;
     private Table.Exporter exporter;
@@ -47,18 +49,18 @@ class XMLExporterTest {
         in.close();
     }
 
-    void insert(Object[] row) {
-        rowSet.add(row);
-    }
-
     @Test
     void testExport() throws IOException {
-        exporter = new XMLExporter(out);
+        exporter = new HTMLExporter(out);
 
         exporter.startTable();
         exporter.storeMetadata(tableName, columnNames.length, rowSet.size(), new ArrayIterator(columnNames));
         for (Iterator i = rowSet.iterator(); i.hasNext(); )
             exporter.storeRow(new ArrayIterator((Object[]) i.next()));
         exporter.endTable();
+    }
+
+    void insert(Object[] row) {
+        rowSet.add(row);
     }
 }
