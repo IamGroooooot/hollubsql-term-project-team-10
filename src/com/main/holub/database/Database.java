@@ -344,7 +344,8 @@ public final class Database {    /* The directory that represents the database.
      */
 
     private final Map<String, Table> tables = new TableMap(new HashMap());
-    private File location = new File(".");
+    private static String databaseRootPath = "/dp2023";
+    private File location = new File(databaseRootPath);
     /**
      * The number of rows modified by the last
      * INSERT, DELETE, or UPDATE request.
@@ -363,6 +364,11 @@ public final class Database {    /* The directory that represents the database.
      * is created by calling {@link #useDatabase}.
      */
     public Database() {
+        String os = System.getProperty("os.name").toLowerCase();
+        String homeDirectory = System.getProperty("user.home");
+        // Windows: c:/dp2023 Linux: ~/dp2023
+        databaseRootPath = os.contains("win") ? "/dp2023" : homeDirectory + "/dp2023";
+        this.location = new File(databaseRootPath);
     }
     /**
      * Use the indicated directory for the database
@@ -461,7 +467,7 @@ public final class Database {    /* The directory that represents the database.
      * @throws IOException if the named directory can't be opened.
      */
     public void createDatabase(String name) throws IOException {
-        File location = new File(name);
+        File location = new File(databaseRootPath + "/" + name);
         location.mkdir();
         this.location = location;
     }
@@ -544,6 +550,7 @@ public final class Database {    /* The directory that represents the database.
         if (type.equals(ExporterType.CSV)) {
 
         } else if (type.equals(ExporterType.XML)) {
+
         }
 
     }
@@ -1250,51 +1257,6 @@ public final class Database {    /* The directory that represents the database.
 
     //@workhorse-end
     //--------------------------------------------------------------
-    public static class Test {
-        public static void main(String[] args) throws IOException, ParseFailure {
-            Database theDatabase = new Database();
-
-            // Read a sequence of SQL statements in from the file
-            // Database.test.sql and execute them.
-
-            BufferedReader sql = new BufferedReader(
-                    new FileReader("Database.test.sql"));
-            String test;
-            while ((test = sql.readLine()) != null) {
-                test = test.trim();
-                if (test.length() == 0)
-                    continue;
-
-                while (test.endsWith("\\")) {
-                    test = test.substring(0, test.length() - 1);
-                    test += sql.readLine().trim();
-                }
-
-                System.out.println("Parsing: " + test);
-                Table result = theDatabase.execute(test);
-
-                if (result != null)    // it was a SELECT of some sort
-                    System.out.println(result);
-            }
-
-//            try {
-//                theDatabase.execute("insert garbage SQL");
-//                System.out.println("Database FAILED");
-//                System.exit(1);
-//            } catch (ParseFailure e) {
-//                System.out.println("Correctly found garbage SQL:\n"
-//                        + e + "\n"
-//                        + e.getErrorReport());
-//            }
-
-            theDatabase.dump(ExporterType.CSV);
-//            theDatabase.dump(ExporterType.HTML);
-//            theDatabase.dump(ExporterType.XML);
-            System.out.println("Database PASSED");
-            System.exit(0);
-        }
-    }
-
     /**
      * A Map proxy that hanldes lazy instatiation of tables
      * from the disk.

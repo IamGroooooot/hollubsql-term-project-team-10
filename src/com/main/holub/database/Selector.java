@@ -36,7 +36,7 @@ package com.main.holub.database;
  * @include /etc/license.txt
  */
 
-interface Selector {
+public interface Selector {
     /**
      * An instance of {@link Selector.Adapter),
      * pass Selector.ALL to the {@link Table}'s
