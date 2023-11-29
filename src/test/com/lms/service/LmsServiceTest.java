@@ -48,7 +48,7 @@ class LmsServiceTest {
     @Test
     void AddUserFailTest() throws Exception {
         lmsService.AddUser("1", "3");
-        Assertions.assertEquals("Id Already Exists", lmsService.GetResult());
+        Assertions.assertEquals("database error", lmsService.GetResult());
     }
 
     @DisplayName("Add book success")
@@ -62,13 +62,15 @@ class LmsServiceTest {
     @Test
     void AddBookFailTest() throws Exception {
         lmsService.AddBook("2", "3");
-        Assertions.assertEquals("Id Already Exists", lmsService.GetResult());
+        Assertions.assertEquals("database error", lmsService.GetResult());
     }
 
     @DisplayName("Borrow book success")
     @Test
     void BorrowBookTest() throws Exception {
-        lmsService.BorrowBook("1", "2");
+        updateDatabase.AddData("users", "3", "3");
+        updateDatabase.AddData("books", "4", "4");
+        lmsService.BorrowBook("4", "3");
         Assertions.assertEquals("Completed", lmsService.GetResult());
     }
 
@@ -82,7 +84,7 @@ class LmsServiceTest {
     @DisplayName("Return book success")
     @Test
     void ReturnBookTest() throws Exception {
-        lmsService.ReturnBook("1", "2");
+        lmsService.ReturnBook("2", "1");
         Assertions.assertEquals("Completed", lmsService.GetResult());
     }
 

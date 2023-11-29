@@ -51,7 +51,7 @@ public class UpdateDatabase {
         // 대여 기록 추가
         try {
             Date today = new Date();
-            SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
             // 아이디를 갖고 대여기록 추가. 1은 대여를, 0은 반납 완료를 의미.
             return databaseManager.executeUpdate("insert into rents VALUES('" + date.format(today) + "', '" +
                     bookId + "', '" + userId + "', 1)");

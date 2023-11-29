@@ -39,7 +39,7 @@ public class UpdateDatabaseTest {
     void TestAddDataToRent() throws Exception {
         int result = updateDatabase.AddData("1", "2");
         Assertions.assertEquals(1, result);
-        ResultSet resultSet = databaseManager.executeQuery("select * from rents where BookId='1' and UserId='2'");
+        ResultSet resultSet = databaseManager.executeQuery("select * from rents where BookId='2' and UserId='1'");
         Assertions.assertTrue(resultSet.next());
     }
 
