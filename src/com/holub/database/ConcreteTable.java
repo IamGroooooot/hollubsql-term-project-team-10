@@ -713,7 +713,6 @@ import java.util.*;
 
             Reader in = new FileReader("people");
             people = new ConcreteTable(new XMLImporter(in));
-
             in.close();
         }
 
