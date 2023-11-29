@@ -23,7 +23,7 @@ public class LmsController {
         SetAction(0);
     }
 
-    private void SetAction(int num) {
+    public void SetAction(int num) {
         // 선택하는 라디오박스? 에 따라서 입력 버튼에 기존에 할당되어있던 listener 을 삭제하고 신규 listener 을 추가해줌
         view.RemovePreviousButtonListener();
         switch (num) {
