@@ -63,6 +63,10 @@ public class GUIApp {
         button1.addActionListener(action);
     }
 
+    public ActionListener GetActionListener() {
+        return button1.getActionListeners()[0];
+    }
+
     public void SetResultView(String resultText) {
         textArea1.setText(resultText);
     }
