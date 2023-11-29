@@ -137,4 +137,51 @@ class DatabaseTest {
 
         assertEquals(exception.getMessage(), "Primary key(id) is duplicated");
     }
+
+    @DisplayName("Select * with join Test Case")
+    @Test
+    void testSelectAllWithJoin() throws IOException, ParseFailure {
+        String tableSql = """
+                create table address
+                (
+                    addrId int,
+                    street varchar,
+                    city   varchar,
+                    state  char(2),
+                    zip    int,
+                    primary key (addrId)
+                )
+                """;
+        theDatabase.execute(tableSql);
+        theDatabase.execute("insert into address values (1, 'Dongjak', 'Seoul', 'gu', 12345)");
+        theDatabase.execute("insert into address values (2, 'Seocho', 'Seoul', 'gu', 22245)");
+        theDatabase.execute("insert into address values (3, 'Gangnam', 'Seoul', 'gu', 33345)");
+
+        String tableSql2 = """
+                create table name
+                (
+                    first  varchar(3),
+                    last   varchar(8),
+                    addrId integer
+                )
+                """;
+        theDatabase.execute(tableSql2);
+        theDatabase.execute("insert into name values ('HoSeong', 'Kim', 1)");
+        theDatabase.execute("insert into name values ('JuHyung', 'Ko', 2)");
+        theDatabase.execute("insert into name values ('TaekWon', 'Nam', 3)");
+        theDatabase.execute("insert into name values ('JuHee', 'Choi', 4)");
+
+        String selectSql = """
+                select * from name, address
+                where name.addrId = address.addrId
+                """;
+        String result = theDatabase.execute(selectSql).toString();
+
+        System.out.println(result);
+
+        assertTrue(result.contains("HoSeong	Kim	1	1	Dongjak	Seoul	gu	12345"));
+        assertTrue(result.contains("JuHyung	Ko	2	2	Seocho	Seoul	gu	22245"));
+        assertTrue(result.contains("TaekWon	Nam	3	3	Gangnam	Seoul	gu	33345"));
+        assertFalse(result.contains("JuHee	Choi	4	4"));
+    }
 }
