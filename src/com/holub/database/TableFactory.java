@@ -95,10 +95,11 @@ public class TableFactory {
      */
     public static Table load(String name, File directory)
             throws IOException {
-        if (!(name.endsWith(".csv") || name.endsWith(".CSV")))
+        if (!(name.endsWith(".csv") || name.endsWith(".CSV")
+                || name.endsWith(".xml") || name.endsWith(".XML")))
             throw new java.io.IOException(
                     "Filename (" + name + ") does not end in "
-                            + "supported extension (.csv)");
+                            + "supported extension (.csv|.CSV|.xml|.XML)");
 
         Reader in = new FileReader(new File(directory, name));
         Table loaded = new ConcreteTable(new CSVImporter(in));
