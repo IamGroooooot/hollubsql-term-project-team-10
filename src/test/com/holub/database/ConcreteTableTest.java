@@ -1,6 +1,7 @@
 package com.holub.database;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,18 @@ import java.util.Iterator;
 import java.util.List;
 
 class ConcreteTableTest {
+    private static String databaseRootPath = "/dp2023";
+
     Table people;
     Table address;
+
+    @BeforeAll
+    static void setUpAll() {
+        String os = System.getProperty("os.name").toLowerCase();
+        String homeDirectory = System.getProperty("user.home");
+        // Windows: c:/dp2023 Linux: ~/dp2023
+        databaseRootPath = os.contains("win") ? "/dp2023" : homeDirectory + "/dp2023";
+    }
 
     @BeforeEach
     void setUp() {
@@ -186,11 +197,11 @@ class ConcreteTableTest {
         // "people" table will
         // fail if this operation fails.
 
-        Writer out = new FileWriter("people");
+        Writer out = new FileWriter(databaseRootPath + "/people");
         people.export(new XMLExporter(out));
         out.close();
 
-        Reader in = new FileReader("people");
+        Reader in = new FileReader(databaseRootPath + "/people");
         people = new ConcreteTable(new XMLImporter(in));
         in.close();
     }
