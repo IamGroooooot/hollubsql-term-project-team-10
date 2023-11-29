@@ -10,8 +10,8 @@
 	<addrId>2</addrId>
 </people>
 <people>
-	<last>2</last>
+	<last>Flintstone</last>
 	<first>Fred</first>
-	<addrId></addrId>
+	<addrId>2</addrId>
 </people>
 </peopleTable>

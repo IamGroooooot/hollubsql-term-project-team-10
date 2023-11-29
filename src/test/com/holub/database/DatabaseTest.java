@@ -3,6 +3,7 @@ package com.holub.database;
 import com.holub.text.ParseFailure;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -29,6 +30,7 @@ class DatabaseTest {
         theDatabase = null;
     }
 
+    @DisplayName("Original Database Test Case")
     @Test
     void testOriginalDatabaseTestCase() throws IOException, ParseFailure {
         BufferedReader sql = new BufferedReader(
@@ -56,6 +58,7 @@ class DatabaseTest {
         System.out.println("Database PASSED");
     }
 
+    @DisplayName("Original Database Failure Test Case")
     @Test
     void testDatabaseParseFail() {
         // Test for failure
@@ -68,6 +71,7 @@ class DatabaseTest {
     }
 
 
+    @DisplayName("Primary Key Test Case")
     @Test
     void testPrimaryKey() throws IOException, ParseFailure {
         String tableSql = """
@@ -91,6 +95,7 @@ class DatabaseTest {
         assertTrue(result.contains("2	Juhyeong	Seoul"));
     }
 
+    @DisplayName("Primary Key Failure - Null Test Case")
     @Test
     void testPrimaryKeyNullFail() throws IOException, ParseFailure {
         String tableSql = """
@@ -111,6 +116,7 @@ class DatabaseTest {
         assertEquals(exception.getMessage(), "Primary key(id) is null");
     }
 
+    @DisplayName("Primary Key Failure - Duplicated Key Test Case")
     @Test
     void testPrimaryKeyDuplicatedFail() throws IOException, ParseFailure {
         String tableSql = """
