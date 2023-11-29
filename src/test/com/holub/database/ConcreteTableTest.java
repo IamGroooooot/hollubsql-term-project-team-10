@@ -1,5 +1,6 @@
 package com.holub.database;
 
+import com.main.holub.database.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
