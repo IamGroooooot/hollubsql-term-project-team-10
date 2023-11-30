@@ -1,9 +1,9 @@
 package com.holub.database;
 
 import com.main.holub.database.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -31,11 +31,7 @@ class ConcreteTableTest {
         address = TableFactory.create("address", new String[]{"addrId", "street", "city", "state", "zip"});
     }
 
-    @AfterEach
-    void tearDown() {
-
-    }
-
+    @DisplayName("Original ConcreteTable Test Case")
     @Test
     void test() {
         try {

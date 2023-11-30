@@ -52,7 +52,7 @@ import java.sql.*;
  */
 
 public class Console {
-    private static final String driverName = "com.holub.database.jdbc.JDBCDriver";
+    private static final String driverName = "com.main.holub.database.jdbc.JDBCDriver";
     //----------------------------------------------------------------------
     private static final GridBagConstraints constraint =
             new GridBagConstraints
