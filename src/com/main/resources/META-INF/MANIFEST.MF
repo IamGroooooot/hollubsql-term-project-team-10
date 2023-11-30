@@ -1,3 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: com.lms.App
-
+Main-Class: com.main.lms.App
