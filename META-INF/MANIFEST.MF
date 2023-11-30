@@ -1,4 +1,3 @@
 Manifest-Version: 1.0
-Created-By: 1.5.0-rc (Sun Microsystems Inc.)
-Main-Class: com.main.holub.database.jdbc.Console
+Main-Class: com.main.lms.App
 
