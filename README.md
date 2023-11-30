@@ -1,11 +1,5 @@
 ## HolubSql을 활용한 도서관리시스템(LMS)
 
-### 팀원
- - 고주형(20182705)
- - 김호성(20185784)
- - 남택완(20184643)
- - 조주희(20184407)
-
 ### GitHub 주소
  - https://github.com/IamGroooooot/hollubsql-term-project-team-10
 
